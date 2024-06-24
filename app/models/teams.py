@@ -17,5 +17,9 @@ class Teams(db.Model):
 
     def to_dict(self):
         return {
-
+            'id': self.id,
+            'year': self.year,
+            'team_name': self.team_name,
+            'logo': self.logo,
+            'user_id': self.user_id
         }
