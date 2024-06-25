@@ -10,7 +10,7 @@ class News(db.Model):
     title = db.Column(db.String, nullable=False)
     details = db.Column(db.String, nullable=False)
     likes = db.Column(db.Integer, default=0)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id', ondelete='CASCADE')), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
 
     comments = db.relationship('Comment', back_populates='news', cascade='all, delete-orphan')
     users = db.relationship('User', back_populates='news')
