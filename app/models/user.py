@@ -15,10 +15,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
 
     merchandise = db.relationship('Merchandise', back_populates='users', cascade='all, delete-orphan')
-    memories = db.relationship('Memories', back_populates='users', cascade='all, delete-orphan')
-    comments = db.relationship('Comments', back_populates='users', cascade='all, delete-orphan')
+    memories = db.relationship('Memory', back_populates='users', cascade='all, delete-orphan')
+    comments = db.relationship('Comment', back_populates='users', cascade='all, delete-orphan')
     news = db.relationship('News', back_populates='users', cascade='all, delete-orphan')
-    teams = db.relationship('Teams', back_populates='users', cascade='all, delete-orphan')
+    teams = db.relationship('Team', back_populates='users', cascade='all, delete-orphan')
 
     @property
     def password(self):

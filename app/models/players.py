@@ -21,7 +21,7 @@ class Player(db.Model):
     svp = db.Column(db.Integer)
     team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id'), ondelete='CASCADE'), nullable=False)
 
-    teams = db.relationship('Team', back_populates='players', cascade='all, delete-orphan')
+    teams = db.relationship('Team', back_populates='players', cascade='all, delete-orphan', single_parent=True)
 
     def to_dict(self):
         return {

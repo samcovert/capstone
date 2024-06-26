@@ -13,7 +13,7 @@ class Comment(db.Model):
     news_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('news.id'), ondelete='CASCADE'))
 
     users = db.relationship('User', back_populates='comments')
-    memories = db.relationship('Memories', back_populates='comments')
+    memories = db.relationship('Memory', back_populates='comments')
     news = db.relationship('News', back_populates='comments')
 
     def to_dict(self):
