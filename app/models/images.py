@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 
-class Images(db.Model):
+class Image(db.Model):
     __tablename__ = 'images'
 
     if environment == "production":
@@ -11,8 +11,8 @@ class Images(db.Model):
     merch_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('merchandise.id'), ondelete='CASCADE'))
     memory_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('memories.id'), ondelete='CASCADE'))
 
-    merchandise = db.Relationship('Merchandise', back_populates='images', foreign_keys=[merch_id])
-    memories = db.Relationship('Memory', back_populates='images', foreign_keys=[memory_id])
+    merchandise = db.relationship('Merchandise', back_populates='images', foreign_keys=[merch_id])
+    memories = db.relationship('Memory', back_populates='images', foreign_keys=[memory_id])
 
     def to_dict(self):
         return {
