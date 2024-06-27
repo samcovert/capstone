@@ -22,4 +22,5 @@ class Merchandise(db.Model):
             'description': self.description,
             'price': self.price,
             'user_id': self.user_id,
+            'images': [image.to_dict() for image in self.images]
         }
