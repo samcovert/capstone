@@ -13,6 +13,7 @@ const MerchDetails = () => {
     useEffect(() => {
             dispatch(fetchMerchDetails(merchId))
     }, [dispatch, merchId])
+
     if (!merch) {
         return (
             <h1>Loading...</h1>
@@ -25,7 +26,7 @@ const MerchDetails = () => {
             <img key={image.id} src={image.url}></img>
         ))}
         <h1>{merch.name}</h1>
-        {merch.desctiption}
+        {merch.description}
         {merch.price}
         </>
     )

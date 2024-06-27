@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import Merchandise, db
+from app.models import Merchandise, Image, db
 from flask_login import current_user, login_required
 
 merchandise_bp = Blueprint('merch', __name__)
@@ -36,3 +36,61 @@ def create_merch():
     db.session.commit()
 
     return jsonify(new_item.to_dict()), 201
+
+# ADD IMAGE TO ITEM
+@merchandise_bp.route('/new/image/', methods=["POST"])
+@login_required
+def create_image():
+    data = request.get_json()
+
+    if not data:
+        abort(400, description="Invalid data")
+
+    new_image = Image(
+        url=data.get('url'),
+        merch_id=data.get('merch_id')
+    )
+    db.session.add(new_image)
+    db.session.commit()
+    return jsonify(new_image.to_dict()), 201
+
+# EDIT ITEM
+@merchandise_bp.route('/<int:id>/edit/', methods=["PUT"])
+@login_required
+def update_item(id):
+    data = request.json
+    item = Merchandise.query.get_or_404(id)
+
+    if not data:
+        abort(400, description="Invalid data")
+
+    item.name = data.get('name', item.name)
+    item.description = data.get('description', item.description)
+    item.price = data.get('price', item.price)
+
+    db.session.commit()
+    return jsonify(item.to_dict())
+
+# EDIT IMAGE
+@merchandise_bp.route('/<int:id/edit/', methods=["PUT"])
+@login_required
+def update_image(id):
+    data = request.json
+    image = Image.query.gett_or_404(id)
+
+    if not data:
+        abort(400, description="Invalid data")
+
+    image.url = data.get('url', image.url)
+
+    db.session.commit()
+    return jsonify(image.to_dict())
+
+# DELETE ITEM
+@merchandise_bp.route('/<int:it>/delete/', methods=["DELETE"])
+def delete_item(id):
+    item = Merchandise.query.get_or_404(id)
+
+    db.session.delete(item)
+    db.session.commit()
+    return jsonify({"message": "Product deleted successfully"})

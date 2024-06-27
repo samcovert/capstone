@@ -4,6 +4,7 @@ import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Merchandise from '../components/Merchandise';
 import MerchDetails from '../components/MerchDetails';
+import CreateMerch from '../components/CreateMerch';
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ export const router = createBrowserRouter([
       {
         path: "merch/:merchId",
         element: <MerchDetails />
+      },
+      {
+        path: "merch/new",
+        element: <CreateMerch />
       }
     ],
   },
