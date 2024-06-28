@@ -58,11 +58,11 @@ def create_image():
 @merchandise_bp.route('/<int:id>/edit/', methods=["PUT"])
 @login_required
 def update_item(id):
-    data = request.json
+    data = request.get_json()
     item = Merchandise.query.get_or_404(id)
 
     if not data:
-        abort(400, description="Invalid data")
+        return jsonify({"error": "Invalid data"}), 400
 
     item.name = data.get('name', item.name)
     item.description = data.get('description', item.description)
@@ -72,14 +72,14 @@ def update_item(id):
     return jsonify(item.to_dict())
 
 # EDIT IMAGE
-@merchandise_bp.route('/<int:id/edit/', methods=["PUT"])
+@merchandise_bp.route('/<int:id>/images/edit/', methods=["PUT"])
 @login_required
 def update_image(id):
-    data = request.json
-    image = Image.query.gett_or_404(id)
+    data = request.get_json()
+    image = Image.query.get_or_404(id)
 
     if not data:
-        abort(400, description="Invalid data")
+        return jsonify({"error": "Invalid data"}), 400
 
     image.url = data.get('url', image.url)
 

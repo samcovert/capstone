@@ -5,6 +5,7 @@ import Layout from './Layout';
 import Merchandise from '../components/Merchandise';
 import MerchDetails from '../components/MerchDetails';
 import CreateMerch from '../components/CreateMerch';
+import UpdateMerch from '../components/CreateMerch/UpdateMerch';
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ export const router = createBrowserRouter([
       {
         path: "merch/new",
         element: <CreateMerch />
+      },
+      {
+        path: "merch/:merchId/edit",
+        element: <UpdateMerch />
       }
     ],
   },
