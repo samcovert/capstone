@@ -18,8 +18,8 @@ class News(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'titles': self.title,
+            'title': self.title,
             'details': self.details,
             'likes': self.likes,
-            'user_id': self.user_id
+            'users': self.users.to_dict()
         }
