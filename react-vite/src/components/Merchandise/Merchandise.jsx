@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 const Merchandise = () => {
     const dispatch = useDispatch()
     const merchandise = useSelector(state => Object.values(state.merchandise))
-console.log(merchandise)
+
     useEffect(() => {
         dispatch(fetchAllMerch())
     }, [dispatch])
@@ -16,10 +16,9 @@ console.log(merchandise)
         <>
         <h1>Merch</h1>
         {merchandise.map(merch => (
-            <Link key={merch.id}>
+            <Link to={`/merch/${merch.id}`} key={merch.id}>
                 <img src={merch.images[0].url}></img>
                 {merch.name}
-                {merch.description}
                 {merch.price}
             </Link>
         ))}

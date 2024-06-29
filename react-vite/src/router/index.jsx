@@ -3,6 +3,10 @@ import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
 import Merchandise from '../components/Merchandise';
+import MerchDetails from '../components/MerchDetails';
+import CreateMerch from '../components/CreateMerch';
+import UpdateMerch from '../components/CreateMerch/UpdateMerch';
+import UserProfile from '../components/UserProfile';
 
 export const router = createBrowserRouter([
   {
@@ -23,6 +27,22 @@ export const router = createBrowserRouter([
       {
         path: "merch",
         element: <Merchandise />
+      },
+      {
+        path: "merch/:merchId",
+        element: <MerchDetails />
+      },
+      {
+        path: "merch/new",
+        element: <CreateMerch />
+      },
+      {
+        path: "merch/:merchId/edit",
+        element: <UpdateMerch />
+      },
+      {
+        path: "user/profile",
+        element: <UserProfile />
       }
     ],
   },
