@@ -8,6 +8,7 @@ import CreateMerch from '../components/CreateMerch';
 import UpdateMerch from '../components/CreateMerch/UpdateMerch';
 import UserProfile from '../components/UserProfile';
 import News from '../components/News';
+import NewsDetails from '../components/NewsDetails';
 
 export const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ export const router = createBrowserRouter([
       {
         path: 'news',
         element: <News />
+      },
+      {
+        path: 'news/:newsId',
+        element: <NewsDetails />
       }
     ],
   },

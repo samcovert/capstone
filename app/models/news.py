@@ -21,5 +21,6 @@ class News(db.Model):
             'title': self.title,
             'details': self.details,
             'likes': self.likes,
-            'users': self.users.to_dict()
+            'users': self.users.to_dict(),
+            'comments': [comment.to_dict() for comment in self.comments]
         }
