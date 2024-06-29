@@ -4,6 +4,7 @@ const CREATE_MERCH = '/merch/CREATE_MERCH'
 const ADD_IMAGE = '/merch/ADD_IMAGE'
 const EDIT_ITEM = '/merch/EDIT_ITEM'
 const EDIT_IMAGE = '/merch/EDIT_IMAGE'
+const DELETE_MERCH = '/merch/DELETE_MERCH'
 
 const getAllMerch = merch => {
     return {
@@ -44,6 +45,13 @@ const editImage = image => {
     return {
         type: EDIT_IMAGE,
         image
+    }
+}
+
+const deleteMerch = merchId => {
+    return {
+        type: DELETE_MERCH,
+        merchId
     }
 }
 
@@ -99,19 +107,6 @@ export const fetchAddImage = (image) => async (dispatch) => {
 }
 
 export const fetchEditItem = (merch, merchId) => async (dispatch) => {
-    // const res = await fetch(`api/merch/${merchId}/edit/`, {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(merch)
-    // })
-    // if (res.ok) {
-    //     const updatedItem = await res.json()
-    //     dispatch(editItem(updatedItem))
-    //     dispatch(fetchMerchDetails(merchId))
-    //     return updatedItem
-    // }
     try {
         const res = await fetch(`/api/merch/${merchId}/edit/`, {
             method: 'PUT',
@@ -161,6 +156,16 @@ export const fetchEditImage = ({ url, merch_id, image_id }) => async (dispatch) 
     }
 }
 
+export const fetchDeleteMerch = (merchId) => async (dispatch) => {
+    const res = await fetch(`/api/merch/${merchId}/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(deleteMerch(merchId))
+        return
+    }
+}
+
 
 const initialState = {}
 const merchReducer = (state=initialState, action) => {
@@ -201,6 +206,11 @@ const merchReducer = (state=initialState, action) => {
                 ...state,
                 [action.image.id]: action.image
             }
+        }
+        case DELETE_MERCH: {
+            const newState = { ...state }
+            delete newState[action.merchId]
+            return newState
         }
         default:
             return state;

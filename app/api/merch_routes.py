@@ -87,7 +87,7 @@ def update_image(id):
     return jsonify(image.to_dict())
 
 # DELETE ITEM
-@merchandise_bp.route('/<int:it>/delete/', methods=["DELETE"])
+@merchandise_bp.route('/<int:id>/delete/', methods=["DELETE"])
 def delete_item(id):
     item = Merchandise.query.get_or_404(id)
 
