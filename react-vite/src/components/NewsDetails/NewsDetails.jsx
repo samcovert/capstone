@@ -14,10 +14,10 @@ const NewsDetails = () => {
         dispatch(fetchNewsDetails(newsId))
     }, [dispatch])
 
-    console.log(news)
     if (!news) {
         return <h1>Loading...</h1>
     }
+
     return (
         <>
         <h1>{news.title}</h1>
