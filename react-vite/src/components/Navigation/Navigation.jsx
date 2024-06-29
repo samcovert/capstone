@@ -10,7 +10,7 @@ function Navigation() {
         <NavLink to="/">
           <img className="logo" src="/logo-yotes-4-ever.png"></img>
         </NavLink>
-
+        <p className="slogan">Hockey Belongs In The Desert</p>
         <ProfileButton />
     </div>
     <div className="nav-bottom">

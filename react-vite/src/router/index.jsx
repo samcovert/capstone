@@ -7,6 +7,7 @@ import MerchDetails from '../components/MerchDetails';
 import CreateMerch from '../components/CreateMerch';
 import UpdateMerch from '../components/CreateMerch/UpdateMerch';
 import UserProfile from '../components/UserProfile';
+import News from '../components/News';
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "user/profile",
         element: <UserProfile />
+      },
+      {
+        path: 'news',
+        element: <News />
       }
     ],
   },
