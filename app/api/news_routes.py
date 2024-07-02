@@ -52,3 +52,13 @@ def update_news(id):
 
     db.session.commit()
     return jsonify(news.to_dict())
+
+# DELETE NEWS
+@news_bp.route('/<int:id>/delete/', methods=['DELETE'])
+@login_required
+def delete_news(id):
+    news = News.query.get_or_404(id)
+
+    db.session.delete(news)
+    db.session.commit()
+    return jsonify({"message": "Post deleted successfully"})

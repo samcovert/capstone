@@ -2,6 +2,7 @@ const GET_ALL_NEWS = '/news/GET_ALL_NEWS'
 const GET_ONE_NEWS = '/news/GET_ONE_NEWS'
 const CREATE_NEWS = '/news/CREATE_NEWS'
 const EDIT_NEWS = '/news/EDIT_NEWS'
+const DELETE_NEWS = '/news/DELETE_NEWS'
 
 const getAllNews = news => {
     return {
@@ -28,6 +29,13 @@ const editNews = news => {
     return {
         type: EDIT_NEWS,
         news
+    }
+}
+
+const deleteNews = newsId => {
+    return {
+        type: DELETE_NEWS,
+        newsId
     }
 }
 
@@ -84,6 +92,16 @@ export const fetchEditNews = (news, newsId) => async (dispatch) => {
     }
 }
 
+export const fetchDeleteNews = (newsId) => async (dispatch) => {
+    const res = await fetch(`/api/news/${newsId}/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(deleteNews(newsId))
+        return
+    }
+}
+
 const initialState = {}
 const newsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -110,6 +128,11 @@ const newsReducer = (state=initialState, action) => {
                 ...state,
                 [action.news.id]: action.news
             }
+        }
+        case DELETE_NEWS: {
+            const newState = { ...state }
+            delete newState[action.newsId]
+            return newState
         }
         default:
             return state

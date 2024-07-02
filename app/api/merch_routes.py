@@ -88,9 +88,10 @@ def update_image(id):
 
 # DELETE ITEM
 @merchandise_bp.route('/<int:id>/delete/', methods=["DELETE"])
+@login_required
 def delete_item(id):
     item = Merchandise.query.get_or_404(id)
 
     db.session.delete(item)
     db.session.commit()
-    return jsonify({"message": "Product deleted successfully"})
+    return jsonify({"message": "Item deleted successfully"})
