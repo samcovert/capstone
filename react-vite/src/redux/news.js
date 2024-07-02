@@ -1,6 +1,7 @@
 const GET_ALL_NEWS = '/news/GET_ALL_NEWS'
 const GET_ONE_NEWS = '/news/GET_ONE_NEWS'
 const CREATE_NEWS = '/news/CREATE_NEWS'
+const EDIT_NEWS = '/news/EDIT_NEWS'
 
 const getAllNews = news => {
     return {
@@ -19,6 +20,13 @@ const getOneNews = news => {
 const createNews = news => {
     return {
         type: CREATE_NEWS,
+        news
+    }
+}
+
+const editNews = news => {
+    return {
+        type: EDIT_NEWS,
         news
     }
 }
@@ -59,6 +67,23 @@ export const fetchCreateNews = (news) => async (dispatch) => {
     }
 }
 
+export const fetchEditNews = (news, newsId) => async (dispatch) => {
+    const res = await fetch(`/api/news/${newsId}/edit/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(news)
+    })
+
+    if (res.ok) {
+        const updatedNews = await res.json();
+        dispatch(editNews(updatedNews))
+        dispatch(fetchNewsDetails(newsId))
+        return updatedNews
+    }
+}
+
 const initialState = {}
 const newsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -79,6 +104,12 @@ const newsReducer = (state=initialState, action) => {
                 [action.news.id]: action.news
             }
             return newState
+        }
+        case EDIT_NEWS: {
+            return {
+                ...state,
+                [action.news.id]: action.news
+            }
         }
         default:
             return state

@@ -36,3 +36,19 @@ def create_news():
     db.session.commit()
 
     return jsonify(new_news.to_dict()), 201
+
+# EDIT NEWS
+@news_bp.route('/<int:id>/edit/', methods=['PUT'])
+@login_required
+def update_news(id):
+    data = request.get_json()
+    news = News.query.get_or_404(id)
+
+    if not data:
+        abort(400, description='Invalid Data')
+
+    news.title = data.get('title', news.title)
+    news.details = data.get('details', news.details)
+
+    db.session.commit()
+    return jsonify(news.to_dict())

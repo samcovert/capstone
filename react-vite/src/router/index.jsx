@@ -11,6 +11,7 @@ import News from '../components/News';
 import NewsDetails from '../components/NewsDetails';
 import Homepage from '../components/Homepage';
 import CreateNews from '../components/CreateNews';
+import UpdateNews from '../components/CreateNews/UpdateNews';
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,10 @@ export const router = createBrowserRouter([
       {
         path: 'news/new',
         element: <CreateNews />
+      },
+      {
+        path: 'news/:newsId/edit',
+        element: <UpdateNews />
       }
     ],
   },
