@@ -15,3 +15,24 @@ def get_news():
 def get_news_by_id(id):
     news = News.query.get_or_404(id)
     return jsonify(news.to_dict())
+
+
+# CREATE NEW NEWS
+@news_bp.route('/new/', methods=['POST'])
+@login_required
+def create_news():
+    data = request.get_json()
+
+    if not data:
+        abort(400, description='Invalid Data')
+
+    new_news = News(
+        title=data.get('title'),
+        details=data.get('details'),
+        user_id=current_user.id
+    )
+
+    db.session.add(new_news)
+    db.session.commit()
+
+    return jsonify(new_news.to_dict()), 201
