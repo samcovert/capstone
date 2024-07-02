@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAllNews } from "../../redux/News"
+import { NavLink } from "react-router-dom"
 
 
 const News = () => {
@@ -10,7 +11,7 @@ const News = () => {
     useEffect(() => {
         dispatch(fetchAllNews())
     }, [dispatch])
-console.log(news)
+
     if (!news) {
         return <h1>Loading...</h1>
     }
@@ -18,12 +19,14 @@ console.log(news)
         <>
         <h1>News</h1>
         {news.map(post => (
+            <NavLink to={`/news/${post.id}`}>
             <div key={post.id} className="news-card">
                 <div>{post.users.username}</div>
                 <div>{post.title}</div>
                 <div>{post.details}</div>
                 <div>{post.likes}</div>
             </div>
+            </NavLink>
         ))}
         </>
     )

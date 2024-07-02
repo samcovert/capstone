@@ -4,14 +4,18 @@ import { fetchAllMerch } from "../../redux/merch"
 import { NavLink } from "react-router-dom"
 import OpenModalButton from "../OpenModalButton"
 import DeleteMerch from "../DeleteMerch"
+import { fetchAllNews } from "../../redux/News"
+import DeleteNews from "../DeleteNews"
 
 const UserProfile = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
     const merch = useSelector(state => Object.values(state.merchandise).filter(item => item.user_id === user.id))
+    const news = useSelector(state => Object.values(state.news).filter(post => post.users.id === user.id))
 
     useEffect(() => {
         dispatch(fetchAllMerch())
+        dispatch(fetchAllNews())
     }, [dispatch])
 
     return (
@@ -28,6 +32,22 @@ const UserProfile = () => {
                     </NavLink>
                     <OpenModalButton
                         modalComponent={<DeleteMerch merchId={item.id} />}
+                        buttonText='Delete'
+                    />
+                </div>
+            ))}
+        <h1>Your News Posts</h1>
+            {news.map(post => (
+                <div key={post.id}>
+                    <NavLink to={`/news/${post.id}`}>
+                    <h3>{post.title}</h3>
+                    <p>{post.details}</p>
+                    </NavLink>
+                    <NavLink to={`/news/${post.id}/edit`}>
+                        <button>Edit</button>
+                    </NavLink>
+                    <OpenModalButton
+                        modalComponent={<DeleteNews newsId={post.id}/>}
                         buttonText='Delete'
                     />
                 </div>

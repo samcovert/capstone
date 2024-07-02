@@ -14,10 +14,10 @@ function Navigation() {
         <ProfileButton />
     </div>
     <div className="nav-bottom">
-        <NavLink className='nav-item' to='/merch'>Store</NavLink>
-        <NavLink className='nav-item' to='/news'>News</NavLink>
-        <NavLink className='nav-item' to='/history'>History</NavLink>
-        <NavLink className='nav-item' to='/memories'>Memories</NavLink>
+      <div className="nav-item-div"><NavLink className='nav-item' to='/merch'>Store</NavLink></div>
+      <div className="nav-item-div"><NavLink className='nav-item' to='/news'>News</NavLink></div>
+      <div className="nav-item-div"><NavLink className='nav-item' to='/history'>History</NavLink></div>
+      <div className="nav-item-div"><NavLink className='nav-item' to='/memories'>Memories</NavLink></div>
     </div>
     </>
   );

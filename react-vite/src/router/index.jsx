@@ -8,6 +8,10 @@ import CreateMerch from '../components/CreateMerch';
 import UpdateMerch from '../components/CreateMerch/UpdateMerch';
 import UserProfile from '../components/UserProfile';
 import News from '../components/News';
+import NewsDetails from '../components/NewsDetails';
+import Homepage from '../components/Homepage';
+import CreateNews from '../components/CreateNews';
+import UpdateNews from '../components/CreateNews/UpdateNews';
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +19,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <Homepage />,
       },
       {
         path: "login",
@@ -48,6 +52,18 @@ export const router = createBrowserRouter([
       {
         path: 'news',
         element: <News />
+      },
+      {
+        path: 'news/:newsId',
+        element: <NewsDetails />
+      },
+      {
+        path: 'news/new',
+        element: <CreateNews />
+      },
+      {
+        path: 'news/:newsId/edit',
+        element: <UpdateNews />
       }
     ],
   },

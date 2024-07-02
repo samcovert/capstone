@@ -22,5 +22,6 @@ class Comment(db.Model):
             'content': self.content,
             'user_id': self.user_id,
             'memory_id': self.memory_id,
-            'news_id': self.news_id
+            'news_id': self.news_id,
+            'users': self.users.to_dict()
         }
