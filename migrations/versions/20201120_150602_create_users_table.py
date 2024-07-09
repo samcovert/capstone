@@ -86,6 +86,8 @@ def upgrade():
     sa.Column('wins', sa.Integer()),
     sa.Column('gaa', sa.Integer()),
     sa.Column('svp', sa.Integer()),
+    sa.Column('gp', sa.Integer()),
+    sa.Column('age', sa.Integer()),
     sa.Column('team_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'])

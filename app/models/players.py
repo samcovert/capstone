@@ -19,6 +19,8 @@ class Player(db.Model):
     wins = db.Column(db.Integer)
     gaa = db.Column(db.Integer)
     svp = db.Column(db.Integer)
+    gp = db.Column(db.Integer)
+    age = db.Column(db.Integer)
     team_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('teams.id'), ondelete='CASCADE'), nullable=False)
 
     teams = db.relationship('Team', back_populates='players', cascade='all, delete-orphan', single_parent=True)

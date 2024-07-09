@@ -12,6 +12,8 @@ import NewsDetails from '../components/NewsDetails';
 import Homepage from '../components/Homepage';
 import CreateNews from '../components/CreateNews';
 import UpdateNews from '../components/CreateNews/UpdateNews';
+import History from '../components/History';
+import TeamDetails from '../components/TeamDetails/TeamDetails';
 
 export const router = createBrowserRouter([
   {
@@ -64,6 +66,14 @@ export const router = createBrowserRouter([
       {
         path: 'news/:newsId/edit',
         element: <UpdateNews />
+      },
+      {
+        path: 'history',
+        element: <History />
+      },
+      {
+        path: 'history/:teamYear',
+        element: <TeamDetails />
       }
     ],
   },

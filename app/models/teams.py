@@ -21,5 +21,6 @@ class Team(db.Model):
             'year': self.year,
             'team_name': self.team_name,
             'logo': self.logo,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'players': [player.to_dict() for player in self.players]
         }

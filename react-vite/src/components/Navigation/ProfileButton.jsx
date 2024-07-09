@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUserCircle } from 'react-icons/fa';
+import { MdSportsHockey } from "react-icons/md";
 import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { useNavigate } from "react-router-dom";
+import './Navigation.css'
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -49,8 +50,13 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button className="sticks" onClick={toggleMenu}>
+        <div className="dropdown-button-image">
+        <MdSportsHockey className="profile-icon" />
+        </div>
+        <div className="dropdown-button-text">
+        Profile
+        </div>
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
