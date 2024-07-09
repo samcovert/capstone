@@ -27,7 +27,7 @@ const TeamDetails = () => {
     return (
         <>
         {team.players.map(player => (
-            <div id={player.id}>
+            <div key={player.id}>
                 <span>{player.first_name}</span>
                 <span>{player.last_name}</span>
                 <span>{player.position}</span>
