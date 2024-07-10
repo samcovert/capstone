@@ -8,7 +8,7 @@ const TeamDetails = () => {
     const { teamYear } = useParams()
     const dispatch = useDispatch()
     const teams = useSelector(state => state.teams)
-    const team = teams ? teams[teamYear] : undefined
+    const team = teams ? Object.values(teams).find(team => team.year === teamYear) : undefined
 
     useEffect(() => {
         if (!team) {

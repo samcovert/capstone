@@ -12,7 +12,7 @@ const History = () => {
     useEffect(() => {
         dispatch(fetchAllTeams())
     }, [dispatch])
-console.log(teams)
+
     return (
         <>
         <h1>Coyotes Franchise History</h1>

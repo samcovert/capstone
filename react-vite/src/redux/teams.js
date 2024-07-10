@@ -47,7 +47,7 @@ const teamsReducer = (state=initialState, action) => {
 
             return {
                 ...state,
-                [action.team.year]: action.team
+                [action.team.id]: action.team
             }
         }
         default:
