@@ -14,6 +14,7 @@ import CreateNews from '../components/CreateNews';
 import UpdateNews from '../components/CreateNews/UpdateNews';
 import History from '../components/History';
 import TeamDetails from '../components/TeamDetails/TeamDetails';
+import Memories from '../components/Memories';
 
 export const router = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ export const router = createBrowserRouter([
       {
         path: 'history/:teamYear',
         element: <TeamDetails />
+      },
+      {
+        path: 'memories',
+        element: <Memories />
       }
     ],
   },

@@ -22,5 +22,7 @@ class Memory(db.Model):
             'title': self.title,
             'details': self.details,
             'likes': self.likes,
-            'user_id': self.user_id
+            'user': self.users.to_dict(),
+            'comments': [comment.to_dict() for comment in self.comments],
+            'images': [image.to_dict() for image in self.images]
         }

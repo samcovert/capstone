@@ -10,6 +10,7 @@ from .api.auth_routes import auth_routes
 from .api.merch_routes import merchandise_bp
 from .api.news_routes import news_bp
 from .api.history_routes import history_bp
+from .api.memories_routes import memories_bp
 from .seeds import seed_commands
 from .config import Config
 
@@ -34,6 +35,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(merchandise_bp, url_prefix='/api/merch')
 app.register_blueprint(news_bp, url_prefix='/api/news')
 app.register_blueprint(history_bp, url_prefix='/api/history')
+app.register_blueprint(memories_bp, url_prefix='/api/memories')
 db.init_app(app)
 Migrate(app, db)
 

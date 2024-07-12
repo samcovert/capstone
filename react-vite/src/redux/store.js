@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import merchReducer from "./merch";
 import newsReducer from "./news";
 import teamsReducer from "./teams";
+import memsReducer from "./memories";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   merchandise: merchReducer,
   news: newsReducer,
   teams: teamsReducer,
+  memories: memsReducer,
 });
 
 let enhancer;
