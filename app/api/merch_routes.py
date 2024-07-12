@@ -23,7 +23,7 @@ def create_merch():
     data = request.get_json()
 
     if not data:
-        abort(400, description="Invalid data")
+        return jsonify({"error": "Invalid data"}), 400
 
     new_item = Merchandise(
         name=data.get('name'),
@@ -44,7 +44,7 @@ def create_image():
     data = request.get_json()
 
     if not data:
-        abort(400, description="Invalid data")
+        return jsonify({"error": "Invalid data"}), 400
 
     new_image = Image(
         url=data.get('url'),
