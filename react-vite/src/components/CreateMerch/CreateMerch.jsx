@@ -30,10 +30,19 @@ const CreateMerch = () => {
     const validateForm = () => {
         const validationErrors = {}
 
-        if (name.length === 0) validationErrors.name = 'Give your item a name'
-        if (description.length === 0) validationErrors.description = 'Give your item a description'
-        if (price === 0) validationErrors.price = 'Your Product needs a price'
-        if (urls.some(url => !url)) validationErrors.urls = 'Add a photo of your item'
+        if (name.trim().length === 0) validationErrors.name = 'Give your item a name'
+        if (description.trim().length === 0) validationErrors.description = 'Give your item a description'
+        if (price.trim().length === 0 || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
+
+        const isValidUrl = (url) => {
+            try {
+                new URL(url);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+        if (urls.some(url => !url.trim() || !isValidUrl(url.trim()))) validationErrors.urls = 'Add a photo of your item'
 
         return validationErrors
     }

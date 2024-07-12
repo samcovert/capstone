@@ -16,6 +16,7 @@ import History from '../components/History';
 import TeamDetails from '../components/TeamDetails/TeamDetails';
 import Memories from '../components/Memories';
 import MemoryDetails from '../components/MemoryDetails';
+import CreateMemory from '../components/CreateMemory';
 
 export const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ export const router = createBrowserRouter([
       {
         path: 'memories/:memoryId',
         element: <MemoryDetails />
+      },
+      {
+        path: 'memories/new',
+        element: <CreateMemory />
       }
     ],
   },

@@ -1,5 +1,7 @@
 const GET_ALL_MEMORIES = '/memories/GET_ALL_MEMORIES'
 const GET_ONE_MEM = '/memories/GET_ONE_MEM'
+const CREATE_MEMORY = '/memories/CREATE_MEMORY'
+const ADD_IMAGE = '/memories/ADD_IMAGE'
 
 const getAllMemories = memories => {
     return {
@@ -15,6 +17,20 @@ const getOneMemory = memory => {
     }
 }
 
+const createMemory = memory => {
+    return {
+        type: CREATE_MEMORY,
+        memory
+    }
+}
+
+const addImage = image => {
+    return {
+        type: ADD_IMAGE,
+        image
+    }
+}
+
 export const fetchAllMemories = () => async (dispatch) => {
     const res = await fetch('/api/memories/')
 
@@ -26,12 +42,43 @@ export const fetchAllMemories = () => async (dispatch) => {
 }
 
 export const fetchOneMemory = (memId) => async (dispatch) => {
-    const res = await fetch(`/api/memories/${memId}`)
+    const res = await fetch(`/api/memories/${memId}/`)
 
     if (res.ok) {
         const mem = await res.json()
         dispatch(getOneMemory(mem))
         return mem
+    }
+}
+
+export const fetchCreateMemory = (memory) => async (dispatch) => {
+    const res = await fetch('/api/memories/new/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(memory)
+    })
+
+    if (res.ok) {
+        const newMem = await res.json()
+        dispatch(createMemory(newMem))
+        return newMem
+    }
+}
+
+export const fetchAddImage = (image) => async (dispatch) => {
+    const res = await fetch('/api/memories/new/image/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(image)
+    })
+    if (res.ok) {
+        const newImage = await res.json()
+        dispatch(addImage(newImage))
+        return newImage
     }
 }
 

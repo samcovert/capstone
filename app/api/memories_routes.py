@@ -20,7 +20,7 @@ def get_mem_by_id(id):
 @memories_bp.route('/new/', methods=['POST'])
 @login_required
 def create_memory():
-    data = request.json()
+    data = request.get_json()
 
     if not data:
         return jsonify({"error": "Invalid data"}), 400
