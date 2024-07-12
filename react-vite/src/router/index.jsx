@@ -15,6 +15,7 @@ import UpdateNews from '../components/CreateNews/UpdateNews';
 import History from '../components/History';
 import TeamDetails from '../components/TeamDetails/TeamDetails';
 import Memories from '../components/Memories';
+import MemoryDetails from '../components/MemoryDetails';
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path: 'memories',
         element: <Memories />
+      },
+      {
+        path: 'memories/:memoryId',
+        element: <MemoryDetails />
       }
     ],
   },

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAllNews } from "../../redux/News"
+import { fetchAllNews } from "../../redux/news"
 import { NavLink } from "react-router-dom"
 
 

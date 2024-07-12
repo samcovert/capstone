@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
-import { fetchDeleteNews } from "../../redux/News";
+import { fetchDeleteNews } from "../../redux/news";
 
 const DeleteNews = ({ newsId }) => {
     const { closeModal } = useModal()

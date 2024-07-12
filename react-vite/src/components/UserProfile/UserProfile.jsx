@@ -4,7 +4,7 @@ import { fetchAllMerch } from "../../redux/merch"
 import { NavLink } from "react-router-dom"
 import OpenModalButton from "../OpenModalButton"
 import DeleteMerch from "../DeleteMerch"
-import { fetchAllNews } from "../../redux/News"
+import { fetchAllNews } from "../../redux/news"
 import DeleteNews from "../DeleteNews"
 
 const UserProfile = () => {
