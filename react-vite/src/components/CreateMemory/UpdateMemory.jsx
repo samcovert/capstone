@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
-import { fetchAddImage, fetchEditImage, fetchEditItem, fetchMerchDetails } from "../../redux/merch"
+import { fetchAddImage, fetchEditMemory, fetchOneMemory } from "../../redux/memories"
+import { fetchEditImage } from "../../redux/merch"
 
-const UpdateMerch = () => {
+
+const UpdateMemory = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    let { merchId } = useParams()
-    merchId = +merchId
-    const merch = useSelector(state => state.merchandise[+merchId])
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
+    let { memoryId } = useParams()
+    memoryId = +memoryId
+    const memory = useSelector(state => state.memories[memoryId])
+    const [title, setTitle] = useState('')
+    const [details, setDetails] = useState('')
     const [ogUrls, setOgUrls] = useState([])
     const [newUrls, setNewUrls] = useState([])
     const [errors, setErrors] = useState({})
-    useEffect(() => {
-        dispatch(fetchMerchDetails(merchId));
-    }, [dispatch, merchId]);
 
     useEffect(() => {
-        if (merch) {
-            setName(merch.name || '');
-            setDescription(merch.description || '');
-            setPrice(merch.price || 0);
-            const urls = merch.images ? merch.images.map(image => image.url) : []
+        dispatch(fetchOneMemory(memoryId))
+    }, [dispatch, memoryId])
+
+    useEffect(() => {
+        if (memory) {
+            setTitle(memory.title)
+            setDetails(memory.details)
+            const urls = memory.images ? memory.images.map(image => image.url) : []
             setOgUrls(urls)
         }
-    }, [dispatch, merch])
+    }, [dispatch, memory])
 
-    if (!merch) {
+    if (!memory) {
         return <h1>Loading...</h1>
     }
 
@@ -56,9 +57,9 @@ const UpdateMerch = () => {
     const validateForm = () => {
         const validationErrors = {}
 
-        if (name.trim().length === 0) validationErrors.name = 'Give your item a name'
-        if (description.trim().length === 0) validationErrors.description = 'Give your item a description'
-        if (price.trim().length === 0 || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
+        if (title.trim().length === 0) validationErrors.title = 'Give your post a title'
+        if (details.trim().length === 0) validationErrors.details = 'Tell us more about your memories'
+
         const isValidUrl = (ogUrls) => {
             try {
                 new URL(ogUrls);
@@ -67,7 +68,7 @@ const UpdateMerch = () => {
                 return false;
             }
         }
-        if (ogUrls.some(url => !url.trim() || !isValidUrl(url.trim()))) validationErrors.ogUrls = 'Add a photo of your item'
+        if (ogUrls.some(url => !url.trim() || !isValidUrl(url.trim()))) validationErrors.ogUrls = 'Add a photo of your memory'
         const isValidNewUrl = (newUrls) => {
             try {
                 new URL(newUrls);
@@ -85,76 +86,64 @@ const UpdateMerch = () => {
         const validationErrors = validateForm()
 
         if (Object.values(validationErrors).length > 0) {
-            setErrors(validationErrors);
+            setErrors(validationErrors)
             return;
         } else {
             const payload = {
-                name: name,
-                description: description,
-                price: price
+                title: title,
+                details: details
             }
-            const updatedItem = await dispatch(fetchEditItem(payload, merchId))
+            const updatedMem = await dispatch(fetchEditMemory(payload, memoryId))
 
             for (let i = 0; i < ogUrls.length; i++) {
                 await dispatch(fetchEditImage({
                     url: ogUrls[i],
-                    merch_id: merchId,
-                    image_id: merch.images[i].id
+                    memory_id: memoryId,
+                    image_id: memory.images[i].id
                 }))
             }
 
             for (let url of newUrls) {
                 await dispatch(fetchAddImage({
                     url: url,
-                    merch_id: merchId
-                }));
+                    memory_id: memoryId
+                }))
             }
 
-
-            if (updatedItem) {
-                navigate(`/merch/${merchId}`)
+            if (updatedMem) {
+                navigate(`/memories/${memoryId}`)
             }
         }
     }
 
     return (
         <>
-            <h1 className="create-merch-header">Update Your Item</h1>
-            <form className="create-merch-form" onSubmit={handleSubmit}>
-                <label className="input-name">
-                    Item Name
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder="Item Name"
-                    />
-                </label>
-                {errors.name && <p className="form-errors">{errors.name}</p>}
-                <label className="input-description">
-                    Description
-                    <input
-                        type="text"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Description"
-                    />
-                </label>
-                {errors.description && <p className="form-errors">{errors.description}</p>}
-                <label className="input-price">
-                    Price
-                    <input
-                        type="text"
-                        value={price}
-                        onChange={(e) => setPrice(e.target.value)}
-                        placeholder="$0.00"
-                    />
-                </label>
-                {errors.price && <p className="form-errors">{errors.price}</p>}
-                {ogUrls.map((url, i) => (
+        <h1>Update Your Memory</h1>
+        <form className="create-memory-form" onSubmit={handleSubmit}>
+            <label>
+                Title
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Title"
+                />
+            </label>
+            {errors.title && <p className="form-errors">{errors.title}</p>}
+            <label>
+                Details
+                <input
+                    type="text"
+                    value={details}
+                    onChange={(e) => setDetails(e.target.value)}
+                    placeholder="Details"
+                />
+            </label>
+            {errors.details && <p className="form-errors">{errors.details}</p>}
+            {ogUrls.map((url, i) => (
                     <div key={i}>
                         <label className="input-image">
-                            Original Image
+                            Add an Image
                             <input
                                 type="text"
                                 value={url}
@@ -162,6 +151,9 @@ const UpdateMerch = () => {
                                 placeholder="Image URL"
                             />
                         </label>
+                        {i !== 0 && (
+                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                        )}
                         {errors.ogUrls && <p className="form-errors">{errors.ogUrls}</p>}
                     </div>
                 ))}
@@ -181,10 +173,10 @@ const UpdateMerch = () => {
                     </div>
                 ))}
                 <button type='button' onClick={addImageField}>Add Another Image</button>
-                <button className="merch-form-submit" type="submit">Update Item</button>
+                <button className="Memory-form-submit" type="submit">Update Memory</button>
             </form>
         </>
     )
 }
 
-export default UpdateMerch
+export default UpdateMemory

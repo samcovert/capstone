@@ -7,6 +7,7 @@ import DeleteMerch from "../DeleteMerch"
 import { fetchAllNews } from "../../redux/news"
 import DeleteNews from "../DeleteNews"
 import { fetchAllMemories } from "../../redux/memories"
+import DeleteMemory from "../DeleteMemory"
 
 const UserProfile = () => {
     const dispatch = useDispatch()
@@ -67,6 +68,10 @@ const UserProfile = () => {
                     <NavLink to={`/memories/${memory.id}/edit`}>
                         <button>Edit</button>
                     </NavLink>
+                    <OpenModalButton
+                        modalComponent={<DeleteMemory memoryId={memory.id} />}
+                        buttonText='Delete'
+                    />
                 </div>
             ))}
         </>

@@ -2,6 +2,9 @@ const GET_ALL_MEMORIES = '/memories/GET_ALL_MEMORIES'
 const GET_ONE_MEM = '/memories/GET_ONE_MEM'
 const CREATE_MEMORY = '/memories/CREATE_MEMORY'
 const ADD_IMAGE = '/memories/ADD_IMAGE'
+const EDIT_MEMORY = '/memories/EDIT_MEMORY'
+const EDIT_IMAGE = '/memories/EDIT_IMAGE'
+const DELETE_MEMORY = '/memories/DELETE_MEMORY'
 
 const getAllMemories = memories => {
     return {
@@ -28,6 +31,27 @@ const addImage = image => {
     return {
         type: ADD_IMAGE,
         image
+    }
+}
+
+const editMemory = memory => {
+    return {
+        type: EDIT_MEMORY,
+        memory
+    }
+}
+
+const editImage = image => {
+    return {
+        type: EDIT_IMAGE,
+        image
+    }
+}
+
+const deleteMemory = memoryId => {
+    return {
+        type: DELETE_MEMORY,
+        memoryId
     }
 }
 
@@ -82,6 +106,58 @@ export const fetchAddImage = (image) => async (dispatch) => {
     }
 }
 
+export const fetchEditMemory = (memory, memId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${memId}/edit/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(memory)
+    })
+
+    if (res.ok) {
+        const updatedMem = await res.json()
+        dispatch(editMemory(updatedMem))
+        dispatch(fetchOneMemory(memId))
+        return updatedMem
+    }
+}
+
+export const fetchEditImage = ({ url, memory_id, image_id }) => async (dispatch) => {
+    try {
+        const res = await fetch(`/api/memories/${image_id}/images/edit/`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ url })
+        });
+
+        if (!res.ok) {
+            const errorData = await res.json();
+            console.error("Error updating image:", errorData);
+            return;
+        }
+
+        const updatedImage = await res.json();
+        dispatch(editImage(updatedImage));
+        dispatch(fetchOneMemory(memory_id));
+        return updatedImage;
+    } catch (error) {
+        console.error("Fetch error:", error);
+    }
+}
+
+export const fetchDeleteMemory = (memoryId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${memoryId}/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(deleteMemory(memoryId))
+        return
+    }
+}
+
 const initialState = {}
 const memsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -95,6 +171,28 @@ const memsReducer = (state=initialState, action) => {
                 ...state,
                 [action.memory.id]: action.memory
             }
+        }
+        case ADD_IMAGE: {
+            const newState = {
+                ...state,
+                [action.image.id]: action.image
+            }
+            return newState
+        }
+        case EDIT_MEMORY: {
+            return {
+                ...state,
+                [action.memory.id]: action.memory
+            }
+        } case EDIT_IMAGE: {
+            return {
+                ...state,
+                [action.image.id]: action.image
+            }
+        } case DELETE_MEMORY: {
+            const newState = { ...state }
+            delete newState[action.memoryId]
+            return newState
         }
         default:
             return state

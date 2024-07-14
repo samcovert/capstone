@@ -46,7 +46,7 @@ def create_image():
 
     new_image = Image(
         url=data.get('url'),
-        memory_id=data.get('merch_id')
+        memory_id=data.get('memory_id')
     )
     db.session.add(new_image)
     db.session.commit()
@@ -56,7 +56,7 @@ def create_image():
 @memories_bp.route('/<int:id>/edit/', methods=['PUT'])
 @login_required
 def update_memory(id):
-    data = request.get_json
+    data = request.get_json()
     memory = Memory.query.get_or_404(id)
 
     if not data:
