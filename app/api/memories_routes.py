@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import Memory, Image, db
+from app.models import Memory, Image, Comment, db
 from flask_login import current_user, login_required
 
 memories_bp = Blueprint('memories', __name__)
@@ -91,4 +91,37 @@ def delete_memory(id):
 
     db.session.delete(memory)
     db.session.commit()
-    return jsonify({"message": "Item deleted successfully"})
+    return jsonify({"message": "Memory deleted successfully"})
+
+# ADD COMMENT
+@memories_bp.route('/comment/new/', methods=["POST"])
+@login_required
+def add_comment():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    new_comment = Comment(
+        content=data.get('content'),
+        user_id=current_user.id,
+        memory_id=data.get('memory_id')
+    )
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return jsonify(new_comment.to_dict()), 201
+
+# EDIT COMMENT
+@memories_bp.route('/<int:id>/comment/edit/', methods=['PUT'])
+@login_required
+def edit_comment(id):
+    data = request.get_json()
+    comment = Comment.query.get_or_404(id)
+
+    if not data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    comment.content = data.get('content', comment.content)
+    db.session.commit()
+    return jsonify(comment.to_dict())

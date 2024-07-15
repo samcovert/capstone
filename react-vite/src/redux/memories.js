@@ -172,6 +172,13 @@ const memsReducer = (state=initialState, action) => {
                 [action.memory.id]: action.memory
             }
         }
+        case CREATE_MEMORY: {
+            const newState = {
+                ...state,
+                [action.memory.id]: action.memory
+            }
+            return newState
+        }
         case ADD_IMAGE: {
             const newState = {
                 ...state,

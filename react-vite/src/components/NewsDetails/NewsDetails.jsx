@@ -1,7 +1,9 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { fetchNewsDetails } from "../../redux/news"
+import { fetchDeleteComment, fetchNewsDetails } from "../../redux/news"
+import OpenModalButton from "../OpenModalButton"
+import CreateNewsComment from "../Comments/CreateNewsComment"
 
 
 const NewsDetails = () => {
@@ -9,10 +11,15 @@ const NewsDetails = () => {
     newsId = +newsId
     const dispatch = useDispatch()
     const news = useSelector(state => state.news[newsId])
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(fetchNewsDetails(newsId))
-    }, [dispatch])
+    }, [dispatch, newsId])
+
+    const handleDelete = async (id) => {
+        await dispatch(fetchDeleteComment(id, newsId))
+    }
 
     if (!news) {
         return <h1>Loading...</h1>
@@ -25,12 +32,30 @@ const NewsDetails = () => {
         <div>{news.details}</div>
         <div>{news.likes}</div>
         <div className="comments">
-            {news.comments.map(comment => (
+            <div>
+                <OpenModalButton
+                    modalComponent={<CreateNewsComment newsId={newsId} />}
+                    buttonText='Add Comment'
+                />
+            </div>
+            {news.comments?.length ? (
+                news.comments.map(comment => (
                 <div key={comment.id}>
                     {comment.content}
                     {comment.users.username}
+                    {user && user.id === comment.user_id && (
+                        <div className="review-buttons">
+                        <OpenModalButton
+                            modalComponent={<CreateNewsComment comment={comment} newsId={comment.news_id} />}
+                            buttonText='Update'
+                        />
+                        <button onClick={() => handleDelete(comment.id)}>Delete</button>
+                        </div>
+                    )}
                 </div>
-            ))}
+            ))
+        ): <p>No comments yet</p>
+        }
         </div>
         </>
     )
