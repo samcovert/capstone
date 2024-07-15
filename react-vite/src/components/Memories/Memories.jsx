@@ -16,8 +16,8 @@ const Memories = () => {
         <>
         <h1>Memories</h1>
         {memories.map(mem => (
-            <NavLink to={`/memories/${mem.id}`}>
-                <div key={mem.id}>
+            <NavLink key={mem.id} to={`/memories/${mem.id}`}>
+                <div>
                     <img src={mem.images[0].url}></img>
                     <div>{mem.user.username}</div>
                     <div>{mem.title}</div>

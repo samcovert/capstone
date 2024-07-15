@@ -125,3 +125,13 @@ def edit_comment(id):
     comment.content = data.get('content', comment.content)
     db.session.commit()
     return jsonify(comment.to_dict())
+
+# DELETE COMMENT
+@memories_bp.route('/<int:id>/comment/delete/', methods=['DELETE'])
+@login_required
+def delete_comment(id):
+    comment = Comment.query.get_or_404(id)
+
+    db.session.delete(comment)
+    db.session.commit()
+    return jsonify({"message": "Comment deleted successfully"})

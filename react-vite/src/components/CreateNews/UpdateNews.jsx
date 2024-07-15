@@ -16,7 +16,7 @@ const UpdateNews = () => {
 
     useEffect(() => {
         dispatch(fetchNewsDetails(newsId))
-    }, [dispatch])
+    }, [dispatch, newsId])
 
     useEffect(() => {
         if (news) {

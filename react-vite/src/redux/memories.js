@@ -5,6 +5,9 @@ const ADD_IMAGE = '/memories/ADD_IMAGE'
 const EDIT_MEMORY = '/memories/EDIT_MEMORY'
 const EDIT_IMAGE = '/memories/EDIT_IMAGE'
 const DELETE_MEMORY = '/memories/DELETE_MEMORY'
+const ADD_COMMENT = '/news/ADD_COMMENT'
+const EDIT_COMMENT = '/news/EDIT_COMMENT'
+const DELETE_COMMENT = '/news/DELETE_COMMENT'
 
 const getAllMemories = memories => {
     return {
@@ -52,6 +55,27 @@ const deleteMemory = memoryId => {
     return {
         type: DELETE_MEMORY,
         memoryId
+    }
+}
+
+const addComment = comment => {
+    return {
+        type: ADD_COMMENT,
+        comment
+    }
+}
+
+const editComment = comment => {
+    return {
+        type: EDIT_COMMENT,
+        comment
+    }
+}
+
+const deleteComment = commentId => {
+    return {
+        type: DELETE_COMMENT,
+        commentId
     }
 }
 
@@ -158,6 +182,48 @@ export const fetchDeleteMemory = (memoryId) => async (dispatch) => {
     }
 }
 
+export const fetchAddComment = (comment) => async (dispatch) => {
+    const res = await fetch('/api/memories/comment/new/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    })
+    if (res.ok) {
+        const newComment = await res.json()
+        dispatch(addComment(newComment))
+        return newComment
+    }
+}
+
+export const fetchEditComment = (comment, commentId, memoryId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${commentId}/comment/edit/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(comment)
+    })
+    if (res.ok) {
+        const updatedComment = await res.json()
+        dispatch(editComment(updatedComment))
+        dispatch(fetchOneMemory(memoryId))
+        return updatedComment
+    }
+}
+
+export const fetchDeleteComment = (commentId, memoryId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${commentId}/comment/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(deleteComment(commentId))
+        dispatch(fetchOneMemory(memoryId))
+        return
+    }
+}
+
 const initialState = {}
 const memsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -199,6 +265,24 @@ const memsReducer = (state=initialState, action) => {
         } case DELETE_MEMORY: {
             const newState = { ...state }
             delete newState[action.memoryId]
+            return newState
+        }
+        case ADD_COMMENT: {
+            const newState = {
+                ...state,
+                [action.comment.id]: action.comment
+            }
+            return newState
+        }
+        case EDIT_COMMENT: {
+            return {
+                ...state,
+                [action.comment.id]: action.comment
+            }
+        }
+        case DELETE_COMMENT: {
+            const newState = { ...state }
+            delete newState[action.commentId]
             return newState
         }
         default:

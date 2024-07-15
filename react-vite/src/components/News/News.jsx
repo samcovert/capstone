@@ -19,8 +19,8 @@ const News = () => {
         <>
         <h1>News</h1>
         {news.map(post => (
-            <NavLink to={`/news/${post.id}`}>
-            <div key={post.id} className="news-card">
+            <NavLink key={post.id} to={`/news/${post.id}`}>
+            <div className="news-card">
                 <div>{post.users.username}</div>
                 <div>{post.title}</div>
                 <div>{post.details}</div>
