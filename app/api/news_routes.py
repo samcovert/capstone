@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import News, db
+from app.models import News, Comment, db
 from flask_login import current_user, login_required
 
 news_bp = Blueprint('news', __name__)
@@ -62,3 +62,46 @@ def delete_news(id):
     db.session.delete(news)
     db.session.commit()
     return jsonify({"message": "Post deleted successfully"})
+
+# ADD COMMENT
+@news_bp.route('/comment/new/', methods=["POST"])
+@login_required
+def add_comment():
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    new_comment = Comment(
+        content=data.get('content'),
+        user_id=current_user.id,
+        news_id=data.get('news_id')
+    )
+    db.session.add(new_comment)
+    db.session.commit()
+
+    return jsonify(new_comment.to_dict()), 201
+
+# EDIT COMMENT
+@news_bp.route('/<int:id>/comment/edit/', methods=['PUT'])
+@login_required
+def edit_comment(id):
+    data = request.get_json()
+    comment = Comment.query.get_or_404(id)
+
+    if not data:
+        return jsonify({"error": "Invalid data"}), 400
+
+    comment.content = data.get('content', comment.content)
+    db.session.commit()
+    return jsonify(comment.to_dict())
+
+# DELETE COMMENT
+@news_bp.route('/<int:id>/comment/delete/', methods=["DELETE"])
+@login_required
+def delete_comment(id):
+    comment = Comment.query.get_or_404(id)
+
+    db.session.delete(comment)
+    db.session.commit()
+    return jsonify({"message": "Comment deleted successfully"})

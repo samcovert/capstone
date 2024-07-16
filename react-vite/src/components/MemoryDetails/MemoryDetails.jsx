@@ -1,52 +1,56 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useParams } from "react-router-dom"
-import { fetchDeleteComment, fetchNewsDetails } from "../../redux/news"
+import { fetchDeleteComment, fetchOneMemory } from "../../redux/memories"
+import CreateMemoryComment from "../Comments/CreateMemoryComment"
 import OpenModalButton from "../OpenModalButton"
-import CreateNewsComment from "../Comments/CreateNewsComment"
 
 
-const NewsDetails = () => {
-    let { newsId } = useParams()
-    newsId = +newsId
+const MemoryDetails = () => {
+    let { memoryId } = useParams()
+    memoryId = +memoryId
     const dispatch = useDispatch()
-    const news = useSelector(state => state.news[newsId])
+    const memory = useSelector(state => state.memories[memoryId])
     const user = useSelector(state => state.session.user)
 
     useEffect(() => {
-        dispatch(fetchNewsDetails(newsId))
-    }, [dispatch, newsId])
+        dispatch(fetchOneMemory(memoryId))
+    }, [dispatch, memoryId])
 
     const handleDelete = async (id) => {
-        await dispatch(fetchDeleteComment(id, newsId))
+        await dispatch(fetchDeleteComment(id, memoryId))
     }
 
-    if (!news) {
+    if (!memory) {
         return <h1>Loading...</h1>
     }
-
     return (
         <>
-        <h1>{news.title}</h1>
-        <div>{news.users.username}</div>
-        <div>{news.details}</div>
-        <div>{news.likes}</div>
+        <h1>{memory.title}</h1>
+        <div>
+            {memory.images.map(img => (
+                <img key={img.id} src={img.url}></img>
+            ))}
+        </div>
+        <div>{memory.user.username}</div>
+        <div>{memory.details}</div>
+        <div>{memory.likes}</div>
         <div className="comments">
             <div>
                 <OpenModalButton
-                    modalComponent={<CreateNewsComment newsId={newsId} />}
+                    modalComponent={<CreateMemoryComment memoryId={memoryId} />}
                     buttonText='Add Comment'
                 />
             </div>
-            {news.comments?.length ? (
-                news.comments.map(comment => (
+            {memory.comments?.length ? (
+                memory.comments.map(comment => (
                 <div key={comment.id}>
                     {comment.content}
                     {comment.users.username}
                     {user && user.id === comment.user_id && (
                         <div className="review-buttons">
                         <OpenModalButton
-                            modalComponent={<CreateNewsComment comment={comment} newsId={comment.news_id} />}
+                            modalComponent={<CreateMemoryComment comment={comment} memoryId={comment.memory_id} />}
                             buttonText='Update'
                         />
                         <button onClick={() => handleDelete(comment.id)}>Delete</button>
@@ -61,4 +65,4 @@ const NewsDetails = () => {
     )
 }
 
-export default NewsDetails
+export default MemoryDetails

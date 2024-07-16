@@ -10,10 +10,11 @@ class Team(db.Model):
     year = db.Column(db.String, nullable=False)
     team_name = db.Column(db.String, nullable=False)
     logo = db.Column(db.String, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
+    record = db.Column(db.String, nullable=False)
+    playoffs = db.Column(db.String, nullable=False)
+    coach = db.Column(db.String, nullable=False)
 
     players = db.relationship('Player', back_populates='teams')
-    users = db.relationship('User', back_populates='teams')
 
     def to_dict(self):
         return {
@@ -21,5 +22,5 @@ class Team(db.Model):
             'year': self.year,
             'team_name': self.team_name,
             'logo': self.logo,
-            'user_id': self.user_id
+            'players': [player.to_dict() for player in self.players]
         }

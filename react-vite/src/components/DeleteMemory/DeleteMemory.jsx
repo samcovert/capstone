@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
-import { useModal } from "../../context/Modal";
-import { useState } from "react";
-import { fetchDeleteNews } from "../../redux/news";
+import { useDispatch } from "react-redux"
+import { useModal } from "../../context/Modal"
+import { useState } from "react"
+import { fetchDeleteMemory } from "../../redux/memories"
 
-const DeleteNews = ({ newsId }) => {
+
+const DeleteMemory = ({ memoryId }) => {
     const { closeModal } = useModal()
     const dispatch = useDispatch()
     const [errors, setErrors] = useState({})
@@ -11,20 +12,19 @@ const DeleteNews = ({ newsId }) => {
     const handleClick = (e) => {
         e.preventDefault()
         setErrors({})
-        dispatch(fetchDeleteNews(newsId))
+        dispatch(fetchDeleteMemory(memoryId))
             .then(closeModal)
             .catch(async (res) => {
                 let data = await res.json()
                 if (data && data.errors) setErrors(data.errors)
             })
     }
-
     return (
         <>
         <div className="delete-modal">
             <div className="delete-content">
-                <form>
-                    <h3>Are you sure you want to delete this post?</h3>
+            <form>
+                <h3>Are you sure you want to delete this memory?</h3>
                     {errors.message && (
                         <div className="errors">{errors.message}</div>
                     )}
@@ -39,4 +39,4 @@ const DeleteNews = ({ newsId }) => {
     )
 }
 
-export default DeleteNews
+export default DeleteMemory

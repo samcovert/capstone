@@ -67,9 +67,10 @@ def upgrade():
     sa.Column('year', sa.String(), nullable=False),
     sa.Column('team_name', sa.String(), nullable=False),
     sa.Column('logo', sa.String(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('record', sa.String(), nullable=False),
+    sa.Column('playoffs', sa.String(), nullable=False),
+    sa.Column('coach', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'])
     )
 
     op.create_table('players',
@@ -86,6 +87,8 @@ def upgrade():
     sa.Column('wins', sa.Integer()),
     sa.Column('gaa', sa.Integer()),
     sa.Column('svp', sa.Integer()),
+    sa.Column('gp', sa.Integer()),
+    sa.Column('age', sa.Integer()),
     sa.Column('team_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.ForeignKeyConstraint(['team_id'], ['teams.id'])
