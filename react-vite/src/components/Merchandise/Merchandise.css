@@ -1,0 +1,97 @@
+.merch-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.merch.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    margin: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.merch.card:hover {
+    transform: scale(1.01);
+}
+
+.merch-image {
+    width: 100%;
+    height: 250px;
+}
+
+.merch-card-bottom {
+    /* background: linear-gradient(to bottom, white, maroon); */
+}
+
+.merch-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 10px 0;
+    text-align: center;
+    color: black;
+}
+
+.merch-price {
+    font-size: 1.1em;
+    color: black;
+    padding: 10px 0;
+    padding-top: 5px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.merch-card-links {
+    text-decoration: none;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+}
+
+.carousel-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: .1s ease-in-out;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    z-index: 2;
+}
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    z-index: 3;
+    padding: 0 10px;
+}
+
+.carousel-arrow.left {
+    left: 10px;
+}
+
+.carousel-arrow.right {
+    right: 10px;
+}
+
+.carousel-arrow:hover {
+    background: rgba(0, 0, 0, 0.8);
+}
