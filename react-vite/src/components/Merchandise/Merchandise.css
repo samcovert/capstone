@@ -7,9 +7,9 @@
 
 .merch.card {
     background-color: #fff;
-    border: 1px solid #ddd;
+    border: .5px solid black;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
     overflow: hidden;
     width: 300px;
     margin: 10px;
@@ -26,9 +26,6 @@
     height: 250px;
 }
 
-.merch-card-bottom {
-    /* background: linear-gradient(to bottom, white, maroon); */
-}
 
 .merch-name {
     font-size: 1.2em;
@@ -68,7 +65,7 @@
 
 .carousel-item.active {
     opacity: 1;
-    z-index: 2;
+    /* z-index: 1; */
 }
 
 .carousel-arrow {
@@ -80,7 +77,7 @@
     border: none;
     font-size: 2em;
     cursor: pointer;
-    z-index: 3;
+    /* z-index: 2; */
     padding: 0 10px;
 }
 
@@ -94,4 +91,50 @@
 
 .carousel-arrow:hover {
     background: rgba(0, 0, 0, 0.8);
+}
+
+.merch-title {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 20px;
+}
+
+.merch-subtitle {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.sell-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sell-button-link {
+    text-decoration: none;
+}
+
+.sell-button:hover, .signup-button:hover {
+    background-color: rgb(88, 1, 88);
+}
+
+.signup-button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: purple;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

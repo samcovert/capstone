@@ -46,7 +46,7 @@ const Merchandise = () => {
             <h1 className='merch-title'>Welcome to the Coyotes Merch Store!</h1>
             <h2 className='merch-subtitle'>Sell your old Coyotes merchandise, or buy things other fans are selling.</h2>
             {user ? (
-                <NavLink to={'/merch/new'}>
+                <NavLink className='sell-button-link' to={'/merch/new'}>
                     <button className='sell-button'>Add an item to sell</button>
                 </NavLink>
             ) : (
