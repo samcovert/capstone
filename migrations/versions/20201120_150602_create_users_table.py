@@ -39,7 +39,7 @@ def upgrade():
     sa.Column('likes', sa.Integer()),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'])
+    sa.ForeignKeyConstraint(['user_id'], ['users.id']),
     )
 
     op.create_table('news',
@@ -49,7 +49,7 @@ def upgrade():
     sa.Column('likes', sa.Integer()),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'])
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
     )
 
     op.create_table('merchandise',
@@ -116,6 +116,17 @@ def upgrade():
     sa.ForeignKeyConstraint(['news_id'], ['news.id'])
     )
 
+    op.create_table('likes',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('news_id', sa.Integer()),
+    sa.Column('memory_id', sa.Integer()),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['news_id'], ['news.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['memory_id'], ['memories.id'], ondelete='CASCADE')
+    )
+
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE memories SET SCHEMA {SCHEMA};")
@@ -125,6 +136,7 @@ def upgrade():
         op.execute(f"ALTER TABLE players SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###qqqqqqqqq
 
 
@@ -138,4 +150,5 @@ def downgrade():
     op.drop_table('players')
     op.drop_table('images')
     op.drop_table('comments')
+    op.drop_table('likes')
     # ### end Alembic commands ###

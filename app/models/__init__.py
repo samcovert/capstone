@@ -8,4 +8,5 @@ from .news import News
 from .players import Player
 from .teams import Team
 from .user import User
+from .likes import Likes
 from .db import environment, SCHEMA

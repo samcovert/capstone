@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import News, Comment, db
+from app.models import News, Comment, Likes, db
 from flask_login import current_user, login_required
 
 news_bp = Blueprint('news', __name__)
@@ -49,6 +49,7 @@ def update_news(id):
 
     news.title = data.get('title', news.title)
     news.details = data.get('details', news.details)
+    news.likes = data.get('likes', news.likes)
 
     db.session.commit()
     return jsonify(news.to_dict())
@@ -105,3 +106,20 @@ def delete_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return jsonify({"message": "Comment deleted successfully"})
+
+# ADD LIKE
+@news_bp.route('/<int:id>/like/', methods=['POST'])
+@login_required
+def add_like(id):
+    news = News.query.get(id)
+    if not news:
+        return jsonify({'message': 'News not found'}), 404
+
+    like = Likes(
+        news_id=id,
+        user_id=current_user.id
+    )
+    db.session.add(like)
+    db.session.commit()
+
+    return jsonify(news.to_dict())

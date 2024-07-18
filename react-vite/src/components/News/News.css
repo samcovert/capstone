@@ -1,0 +1,82 @@
+
+.news-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff30;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.news-header {
+    text-align: center;
+    color: #8c1d40;
+    margin-bottom: 10px;
+}
+
+.news-description {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.news-card {
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: transform 0.2s ease-in-out;
+}
+
+.news-card:hover {
+    transform: scale(1.02);
+    border-color: #8c1d40;
+}
+
+.news-card a {
+    text-decoration: none;
+    color: #333;
+}
+
+.news-card a:hover {
+    color: #8c1d40;
+}
+
+.news-card div {
+    margin-bottom: 10px;
+}
+
+.like-button {
+    background-color: #8c1d40;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.like-button:hover {
+    background-color: #600d29;
+}
+
+.like-button svg {
+    vertical-align: middle;
+}
+
+.like-button:focus {
+    outline: none;
+}
+
+.news-button {
+    font-size: 16px;
+    background-color: #8c1d40;
+}
+
+.news-button:focus {
+    outline: none;
+}
