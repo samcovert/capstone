@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { fetchAddLike, fetchAllNews } from "../../redux/news"
-import { NavLink } from "react-router-dom"
+import { fetchAddLike, fetchAllNews, fetchDeleteLike } from "../../redux/news"
+import { NavLink, useNavigate } from "react-router-dom"
 import { BiSolidLike } from "react-icons/bi";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
@@ -11,16 +11,22 @@ const News = () => {
     const dispatch = useDispatch()
     const news = useSelector(state => Object.values(state.news))
     const user = useSelector(state => state.session.user)
+    const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(fetchAllNews())
     }, [dispatch])
-console.log(user)
+
     const handleLike = (post) => {
         if (user) {
-            dispatch(fetchAddLike(post.id))
+            const userLike = post.user_likes.find(like => like.user_id === user.id)
+            if (userLike) {
+                dispatch(fetchDeleteLike(userLike.id, post.id))
+            } else {
+                dispatch(fetchAddLike(post.id))
+            }
         } else {
-            alert('Sign in to like this post.')
+            alert('Sign in to like this post.');
         }
     }
 
@@ -29,27 +35,34 @@ console.log(user)
     }
     return (
         <>
-        <div className="news-container">
-        <h1 className="news-header">News</h1>
-        <p className="news-description">
-            Welcome to the Yotes4Ever news page!
-            <OpenModalButton
-                buttonText='Sign in'
-                modalComponent={<LoginFormModal />}
-            />
-            to interact with other fans or post any news that you&aposve heard about the future of the Yotes in the desert.
-        </p>
-        {news.map(post => (
-            <div key={post.id} className="news-card">
-            <NavLink to={`/news/${post.id}`}>
-                <div>{post.users.username}</div>
-                <div>{post.title}</div>
-                <div>{post.details}</div>
-            </NavLink>
-                <button className="like-button" onClick={() => handleLike(post)}><BiSolidLike /> {post.likes}</button>
+            <div className="news-container">
+                <h1 className="news-header">News</h1>
+
+                <div className="news-description">
+                <p className="news-text"> Welcome to the Yotes4Ever news page!</p>
+                <p className="news-text-smaller">Interact with other fans, or post any news that you have heard about the future of the Yotes in the desert.
+                </p>
+                    {!user ? (
+                            <OpenModalButton
+                                buttonText='Sign in to join the fun'
+                                modalComponent={<LoginFormModal />}
+                            />
+                    ) : <div className="new-post-div"><button className="new-post-button" onClick={() => navigate('/news/new')}>Make a new post</button> </div>}
+                </div>
+                {news.map(post => (
+                    <div key={post.id} className="news-card">
+                        <NavLink to={`/news/${post.id}`}>
+                            <div>{post.users.username}</div>
+                            <div>{post.title}</div>
+                            <div>{post.details}</div>
+                        </NavLink>
+                        <button
+                            className={`like-button ${post.user_likes.some(like => like.user_id === user.id) ? 'liked' : ''}`}
+                            onClick={() => handleLike(post)}><BiSolidLike /> {post.likes}
+                        </button>
+                    </div>
+                ))}
             </div>
-        ))}
-        </div>
         </>
     )
 }

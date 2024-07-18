@@ -118,13 +118,10 @@ def upgrade():
 
     op.create_table('likes',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('news_id', sa.Integer()),
-    sa.Column('memory_id', sa.Integer()),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('news_id', sa.Integer(), sa.ForeignKey('news.id', ondelete='CASCADE'), nullable=True),
+    sa.Column('memory_id', sa.Integer(), sa.ForeignKey('memories.id', ondelete='CASCADE'), nullable=True),
+    sa.Column('user_id', sa.Integer(), sa.ForeignKey('users.id', ondelete='CASCADE'), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.ForeignKeyConstraint(['news_id'], ['news.id'], ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['memory_id'], ['memories.id'], ondelete='CASCADE')
     )
 
     if environment == "production":

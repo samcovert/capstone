@@ -115,6 +115,10 @@ def add_like(id):
     if not news:
         return jsonify({'message': 'News not found'}), 404
 
+    existing_like = Likes.query.filter_by(news_id=id, user_id=current_user.id).first()
+    if existing_like:
+        return jsonify({'message': 'You already liked this post'}), 400
+
     like = Likes(
         news_id=id,
         user_id=current_user.id
@@ -123,3 +127,13 @@ def add_like(id):
     db.session.commit()
 
     return jsonify(news.to_dict())
+
+# REMOVE LIKE
+@news_bp.route('/<int:id>/like/delete/', methods=['DELETE'])
+@login_required
+def remove_like(id):
+    like = Likes.query.get(id)
+
+    db.session.delete(like)
+    db.session.commit()
+    return jsonify({"message": "Like deleted successfully"})

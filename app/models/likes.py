@@ -10,9 +10,12 @@ class Likes(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    news_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('news.id'), ondelete='CASCADE')),
-    memory_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('memories.id'), ondelete='CASCADE'))
+    news_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('news.id'), ondelete='CASCADE'), nullable=True)
+    memory_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('memories.id'), ondelete='CASCADE'), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
+
+    news = db.relationship('News', back_populates='user_likes')
+    user = db.relationship('User', back_populates='likes')
 
 
     def to_dict(self):
