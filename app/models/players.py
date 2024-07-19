@@ -40,5 +40,7 @@ class Player(db.Model):
             'wins': self.wins,
             'gaa': self. gaa,
             'svp': self.svp,
+            'gp': self.gp,
+            'age': self.age,
             'team_id': self.team_id
         }

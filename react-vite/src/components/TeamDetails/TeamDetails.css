@@ -1,0 +1,75 @@
+.team-name {
+    text-align: center;
+    font-size: 3em;
+    color: #8C2633;
+    margin: 20px 0;
+    text-shadow: 1px 1px 1px black
+}
+
+.team-year {
+    text-align: center;
+    font-size: 1.8em;
+    color: rgb(37, 37, 37);
+    margin: 10px 0;
+}
+
+.team-facts {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.team-fact {
+    margin: 0 15px;
+    font-size: 1.2em;
+    color: black;
+}
+
+.player-stats {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.position {
+    text-align: center;
+    background-color: #8C2633;
+    color: #fff;
+    padding: 10px;
+    margin: 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.player-stats-header,
+.player-stat {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 10px;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.goalies-header,
+.goalies-stat {
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.player-stats-header {
+    background-color: #8C2633;
+    color: #fff;
+    text-align: center;
+}
+
+.player-stat {
+    border-bottom: 1px solid #ccc;
+}
+
+.player-stat:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.player-stat span {
+    text-align: center;
+}

@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { fetchDeleteComment, fetchNewsDetails, fetchAddLike, fetchDeleteLike } from "../../redux/news"
 import OpenModalButton from "../OpenModalButton"
 import CreateNewsComment from "../Comments/CreateNewsComment"
@@ -13,6 +13,7 @@ const NewsDetails = () => {
     let { newsId } = useParams()
     newsId = +newsId
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const news = useSelector(state => state.news[newsId])
     const user = useSelector(state => state.session.user)
 
@@ -27,6 +28,10 @@ const NewsDetails = () => {
 
     const handleDelete = async (id) => {
         await dispatch(fetchDeleteComment(id, newsId))
+    }
+
+    const handleBack = () => {
+        navigate('/news')
     }
 
     const handleLike = (news) => {
@@ -48,6 +53,7 @@ const NewsDetails = () => {
 
     return (
         <>
+            <div onClick={handleBack} className="back-button">Back to News</div>
             <div className="post-container">
                 <h1 className="news-title">{news.title}</h1>
                 <div className="post-dets-container">
