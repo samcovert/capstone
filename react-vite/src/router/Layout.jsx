@@ -15,15 +15,19 @@ export default function Layout() {
 
   return (
     <>
-    <div className="layout">
-      <div className="background"></div>
-      <img src="https://samsclub13.s3.us-west-2.amazonaws.com/background.jpeg" className="background-logo" />
       <ModalProvider>
         <Navigation />
-        {isLoaded && <Outlet />}
+        {isLoaded &&
+        <>
+        <div className="layout">
+        <Outlet />
+        <img src="https://samsclub13.s3.us-west-2.amazonaws.com/background.jpeg" className="background-logo" />
+        <div className="background"></div>
+        </div>
+
+        </>}
         <Modal />
       </ModalProvider>
-      </div>
     </>
   );
 }

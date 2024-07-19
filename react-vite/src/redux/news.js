@@ -264,10 +264,11 @@ const newsReducer = (state=initialState, action) => {
         }
         case REMOVE_LIKE: {
             const newState = { ...state }
-            const post = newState[action.newsId]
+            const post = { ...newState[action.newsId] }
             if (post) {
                 post.user_likes = post.user_likes.filter(like => like.id !== action.id)
                 post.likes -= 1
+                newState[action.newsId] = post
             }
             return newState;
         }
