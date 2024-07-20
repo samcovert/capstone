@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { fetchAddImage, fetchEditImage, fetchEditItem, fetchMerchDetails } from "../../redux/merch"
@@ -151,36 +151,39 @@ const UpdateMerch = () => {
                     />
                 </label>
                 {errors.price && <p className="form-errors">{errors.price}</p>}
+                <div className="input-image">
+                    {ogUrls.length <= 1 ? 'Original Image' : 'Original Images'}
+                </div>
                 {ogUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Original Image
+                    <Fragment key={i}>
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleOgImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
                         {errors.ogUrls && <p className="form-errors">{errors.ogUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
+                <div className="input-image-update">
+                    Add a New Image
+                    </div>
                 {newUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add a New Image
+                    <Fragment key={i}>
+
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleNewImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                <span className="remove-image-button-span">
+                        <button className="remove-image-field" type="button" onClick={() => removeImageField(i)}>Remove</button>
+                    </span>
                         {errors.newUrls && <p className="form-errors">{errors.newUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
-                <button type='button' onClick={addImageField}>Add Another Image</button>
+                <button className="add-another-image" type='button' onClick={addImageField}>Add Another Image</button>
                 <button className="merch-form-submit" type="submit">Update Item</button>
             </form>
         </>

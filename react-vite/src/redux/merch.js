@@ -102,6 +102,7 @@ export const fetchAddImage = (image) => async (dispatch) => {
     if (res.ok) {
         const newImage = await res.json()
         dispatch(addImage(newImage))
+        dispatch(fetchMerchDetails(newImage.merch_id))
         return newImage
     }
 }
@@ -189,9 +190,10 @@ const merchReducer = (state=initialState, action) => {
             return newState
         }
         case ADD_IMAGE: {
-            const newState = {
-                ...state,
-                [action.image.id]: action.image
+            const newState = { ...state }
+            const merch = newState[action.image.merch_id]
+            if (merch) {
+                merch.images = merch.images ? [...merch.images, action.image] : [action.image]
             }
             return newState
         }
@@ -202,10 +204,12 @@ const merchReducer = (state=initialState, action) => {
             }
         }
         case EDIT_IMAGE: {
-            return {
-                ...state,
-                [action.image.id]: action.image
+            const newState = { ...state }
+            const merch = newState[action.image.merch_id]
+            if (merch) {
+                merch.images = merch.images.map(img => img.id === action.image.id ? action.image : img)
             }
+            return newState
         }
         case DELETE_MERCH: {
             const newState = { ...state }

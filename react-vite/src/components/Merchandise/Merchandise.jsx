@@ -10,22 +10,26 @@ const Merchandise = () => {
     const dispatch = useDispatch();
     const merchandise = useSelector(state => Object.values(state.merchandise));
     const user = useSelector(state => state.session.user);
+    const [currentIndexes, setCurrentIndexes] = useState({});
 
     useEffect(() => {
         dispatch(fetchAllMerch());
     }, [dispatch]);
 
-    const [currentIndexes, setCurrentIndexes] = useState({});
-
     useEffect(() => {
-        if (merchandise.length > 0 && Object.keys(currentIndexes).length === 0) {
+        if (merchandise.length > 0) {
             const initialIndexes = {};
             merchandise.forEach(item => {
-                initialIndexes[item.id] = 0;
+                if (!(item.id in currentIndexes)) {
+                    initialIndexes[item.id] = 0;
+                }
             });
-            setCurrentIndexes(initialIndexes);
+            if (Object.keys(initialIndexes).length > 0) {
+                setCurrentIndexes(prev => ({ ...prev, ...initialIndexes }));
+            }
         }
     }, [merchandise, currentIndexes]);
+
 
     const handlePrev = (id, length) => {
         setCurrentIndexes(prev => ({
@@ -41,6 +45,10 @@ const Merchandise = () => {
         }));
     };
 
+    if (!merchandise) {
+        return <h1>Loading...</h1>
+    }
+// console.log(merchandise)
     return (
         <>
             <h1 className='merch-title'>Welcome to the Coyotes Merch Store!</h1>
@@ -56,11 +64,11 @@ const Merchandise = () => {
                 />
             )}
             <div className='merch-container'>
-                {merchandise.map(merch => (
+                {merchandise?.map(merch => (
                     <div key={merch.id} className="merch card">
                         <div className="carousel">
                     <Link to={`/merch/${merch.id}`}>
-                            {merch.images.map((image, index) => (
+                            {merch.images?.map((image, index) => (
                                 <div
                                     key={index}
                                     className={`carousel-item ${currentIndexes[merch.id] === index ? 'active' : ''}`}
@@ -69,7 +77,7 @@ const Merchandise = () => {
                                 </div>
                             ))}
                     </Link>
-                            {merch.images.length > 1 &&
+                            {merch.images?.length > 1 &&
                             <>
                             <button className="carousel-arrow left" onClick={() => handlePrev(merch.id, merch.images.length)}>{'<'}</button>
                             <button className="carousel-arrow right" onClick={() => handleNext(merch.id, merch.images.length)}>{'>'}</button>

@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { useDispatch } from "react-redux"
 import { fetchAddImage, fetchCreateMerch } from "../../redux/merch"
 import { useNavigate } from "react-router-dom"
+import './CreateMerch.css'
 
 
 const CreateMerch = () => {
@@ -110,24 +111,28 @@ const CreateMerch = () => {
                     />
                 </label>
                 {errors.price && <p className="form-errors">{errors.price}</p>}
+                <div className="input-image">
+                Add an Image
+                </div>
                 {urls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add an Image
+                    <Fragment key={i}>
+
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
+
                         {i !== 0 && (
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                       <span className="remove-image-button-span">
+                       <button className="remove-image-field" type="button" onClick={() => removeImageField(i)}>Remove</button>
+                       </span>
                         )}
                         {errors.urls && <p className="form-errors">{errors.urls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
-                <button type='button' onClick={addImageField}>Add Another Image</button>
+                <button className="add-another-image" type='button' onClick={addImageField}>Add Another Image</button>
                 <button className="merch-form-submit" type="submit">Create Item</button>
             </form>
         </>
