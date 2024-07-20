@@ -17,7 +17,8 @@ const News = () => {
         dispatch(fetchAllNews())
     }, [dispatch])
 
-    const handleLike = (post) => {
+    const handleLike = (post, e) => {
+        e.preventDefault()
         if (user) {
             const userLike = post.user_likes.find(like => like.user_id === user.id)
             if (userLike) {
@@ -37,7 +38,6 @@ const News = () => {
         <>
             <div className="news-container">
                 <h1 className="news-header">News</h1>
-
                 <div className="news-description">
                 <p className="news-text"> Welcome to the Yotes4Ever news page!</p>
                 <p className="news-text-smaller">Interact with other fans, or post any news that you have heard about the future of the Yotes in the desert.
@@ -50,17 +50,19 @@ const News = () => {
                     ) : <div className="new-post-div"><button className="new-post-button" onClick={() => navigate('/news/new')}>Make a new post</button> </div>}
                 </div>
                 {news.map(post => (
-                    <div key={post.id} className="news-card">
-                        <NavLink to={`/news/${post.id}`}>
+                    <NavLink key={post.id} to={`/news/${post.id}`}>
+                    <div className="news-card">
+
                             <div>{post.users.username}</div>
                             <div>{post.title}</div>
                             <div>{post.details}</div>
-                        </NavLink>
+
                         <button
                             className={`like-button ${post.user_likes.some(like => like.user_id === user.id) ? 'liked' : ''}`}
-                            onClick={() => handleLike(post)}><BiSolidLike /> {post.likes}
+                            onClick={(e) => handleLike(post, e)}><BiSolidLike /> {post.likes}
                         </button>
                     </div>
+                    </NavLink>
                 ))}
             </div>
         </>

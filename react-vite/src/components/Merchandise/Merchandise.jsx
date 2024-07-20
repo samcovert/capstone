@@ -71,8 +71,8 @@ const Merchandise = () => {
                     </Link>
                             {merch.images.length > 1 &&
                             <>
-                            <button className="carousel-arrow left" onClick={() => handlePrev(merch.id, merch.images.length)}>‹</button>
-                            <button className="carousel-arrow right" onClick={() => handleNext(merch.id, merch.images.length)}>›</button>
+                            <button className="carousel-arrow left" onClick={() => handlePrev(merch.id, merch.images.length)}>{'<'}</button>
+                            <button className="carousel-arrow right" onClick={() => handleNext(merch.id, merch.images.length)}>{'>'}</button>
                             </>
                             }
                         </div>

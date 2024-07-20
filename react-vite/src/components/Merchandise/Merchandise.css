@@ -72,13 +72,13 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.2);
     color: white;
     border: none;
-    font-size: 2em;
+    font-size: 1em;
     cursor: pointer;
     /* z-index: 2; */
-    padding: 0 10px;
+    padding: 10px;
 }
 
 .carousel-arrow.left {
@@ -97,6 +97,7 @@
     text-align: center;
     font-size: 2.5em;
     margin-top: 20px;
+    text-shadow: 2px 2px 2px #8c1d40;
 }
 
 .merch-subtitle {

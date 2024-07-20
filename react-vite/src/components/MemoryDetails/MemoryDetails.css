@@ -1,0 +1,172 @@
+.mem-det-container {
+    max-width: 800px;
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff74;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mem-det-user {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.mem-det-title {
+    font-size: 2.1rem;
+    color: #8c1d40;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 0px;
+}
+
+.mem-det-image-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mem-det-image {
+    width: 700px;
+    min-height: 500px;
+    max-height: 500px;
+    max-width: 700px;
+    border-radius: 8px;
+    box-shadow: 2px 6px 8px rgba(0, 0, 0, 0.45);
+    margin-bottom: 20px;
+}
+
+.mem-det-image-thumbnails {
+    display: flex;
+    gap: 10px;
+}
+
+.mem-det-thumbnail {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s;
+}
+
+.mem-det-thumbnail:hover {
+    transform: scale(1.05);
+}
+
+.mem-det-thumbnail.active {
+    box-shadow: 0 0 5px 2px #8c1d40;
+}
+
+.mem-det-content-container {
+    margin-bottom: 10px;
+    padding: 15px 10px;
+    background-color: #ffffff41;
+    border-radius: 8px;
+    border: 1px solid #8c1d407b;
+    box-shadow: 1px 2px 8px #8c1d407b;
+}
+
+.mem-det-content {
+    font-size: 1.2rem;
+    color: #333;
+    text-align: left;
+    line-height: 1.6;
+    padding: 0 0 5px 5px;
+}
+
+.like-button {
+    margin-left: 5px;
+}
+
+.like-button:hover {
+    background-color: #a72831;
+}
+
+.mem-det-comments-container {
+    max-width: 800px;
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff74;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mem-det-comments {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff30;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.mem-det-comment-user {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.mem-det-comment-content {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.mem-det-add-comment-button {
+    display: flex;
+    justify-content: center;
+}
+
+.mem-det-comment-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.mem-det-comment-buttons .update-comment {
+    height: 20px;
+    padding: 0px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #5e22a6;
+    transition: background-color 0.2s ease-in-out;
+    width: 55px;
+    margin: 0px;
+}
+
+.mem-det-comment-buttons .update-comment:hover {
+    background-color: rgb(241, 177, 121);
+    transform: none;
+}
+
+.mem-det-comment-buttons .mem-det-comment-delete {
+    font-size: 0.8rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: black;
+    transition: background-color 0.2s ease-in-out;
+    margin: 10px;
+    height: 20px;
+    width: 55px;
+    margin: 0px;
+}
+
+.mem-det-comment-buttons .mem-det-comment-delete:hover {
+    background-color: #c9302c;
+}
+
+.mem-det-no-comments {
+    text-align: center;
+    color: #555;
+}

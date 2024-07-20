@@ -15,6 +15,7 @@ class Likes(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id'), ondelete='CASCADE'), nullable=False)
 
     news = db.relationship('News', back_populates='user_likes')
+    memories = db.relationship('Memory', back_populates='user_likes')
     user = db.relationship('User', back_populates='likes')
 
 

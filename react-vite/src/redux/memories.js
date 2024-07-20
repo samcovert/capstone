@@ -5,9 +5,11 @@ const ADD_IMAGE = '/memories/ADD_IMAGE'
 const EDIT_MEMORY = '/memories/EDIT_MEMORY'
 const EDIT_IMAGE = '/memories/EDIT_IMAGE'
 const DELETE_MEMORY = '/memories/DELETE_MEMORY'
-const ADD_COMMENT = '/news/ADD_COMMENT'
-const EDIT_COMMENT = '/news/EDIT_COMMENT'
-const DELETE_COMMENT = '/news/DELETE_COMMENT'
+const ADD_COMMENT = '/memories/ADD_COMMENT'
+const EDIT_COMMENT = '/memories/EDIT_COMMENT'
+const DELETE_COMMENT = '/memories/DELETE_COMMENT'
+const ADD_LIKE = '/memories/ADD_LIKE'
+const REMOVE_LIKE = '/memories/REMOVE_LIKE'
 
 const getAllMemories = memories => {
     return {
@@ -76,6 +78,21 @@ const deleteComment = commentId => {
     return {
         type: DELETE_COMMENT,
         commentId
+    }
+}
+
+const addLike = memory => {
+    return {
+        type: ADD_LIKE,
+        memory
+    }
+}
+
+const removeLike = (id, memoryId) => {
+    return {
+        type: REMOVE_LIKE,
+        id,
+        memoryId
     }
 }
 
@@ -224,6 +241,27 @@ export const fetchDeleteComment = (commentId, memoryId) => async (dispatch) => {
     }
 }
 
+export const fetchAddLike = (memoryId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${memoryId}/like/`, {
+        method: 'POST'
+    })
+    if (res.ok) {
+        const updatedMem = await res.json()
+        dispatch(addLike(updatedMem))
+        return updatedMem
+    }
+}
+
+export const fetchDeleteLike = (id, memoryId) => async (dispatch) => {
+    const res = await fetch(`/api/memories/${id}/like/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(removeLike(id, memoryId))
+        return
+    }
+}
+
 const initialState = {}
 const memsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -283,6 +321,22 @@ const memsReducer = (state=initialState, action) => {
         case DELETE_COMMENT: {
             const newState = { ...state }
             delete newState[action.commentId]
+            return newState
+        }
+        case ADD_LIKE: {
+            return {
+                ...state,
+                [action.memory.id]: action.memory
+            }
+        }
+        case REMOVE_LIKE: {
+            const newState = { ...state }
+            const mem = { ...newState[action.memoryId] }
+            if (mem) {
+                mem.user_likes = mem.user_likes.filter(like => like.id !== action.id)
+                mem.likes -= 1
+                newState[action.memoryId] = mem
+            }
             return newState
         }
         default:

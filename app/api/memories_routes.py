@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import Memory, Image, Comment, db
+from app.models import Memory, Image, Comment, Likes, db
 from flask_login import current_user, login_required
 
 memories_bp = Blueprint('memories', __name__)
@@ -135,3 +135,34 @@ def delete_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return jsonify({"message": "Comment deleted successfully"})
+
+# ADD LIKE
+@memories_bp.route('/<int:id>/like/', methods=['POST'])
+@login_required
+def add_like(id):
+    memory = Memory.query.get(id)
+    if not memory:
+        return jsonify({'message': 'Memory not found'}), 404
+
+    existing_like = Likes.query.filter_by(memory_id=id, user_id=current_user.id).first()
+    if existing_like:
+        return jsonify({'message': 'You already liked this post'}), 400
+
+    like = Likes(
+        memory_id=id,
+        user_id=current_user.id
+    )
+    db.session.add(like)
+    db.session.commit()
+
+    return jsonify(memory.to_dict())
+
+# REMOVE LIKE
+@memories_bp.route('/<int:id>/like/delete/', methods=['DELETE'])
+@login_required
+def remove_like(id):
+    like = Likes.query.get(id)
+
+    db.session.delete(like)
+    db.session.commit()
+    return jsonify({"message": "Like deleted successfully"})
