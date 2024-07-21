@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify, abort
-from app.models import News, Comment, Likes, db
+from app.models import News, Comment, Like, db
 from flask_login import current_user, login_required
 
 news_bp = Blueprint('news', __name__)
@@ -115,11 +115,11 @@ def add_like(id):
     if not news:
         return jsonify({'message': 'News not found'}), 404
 
-    existing_like = Likes.query.filter_by(news_id=id, user_id=current_user.id).first()
+    existing_like = Like.query.filter_by(news_id=id, user_id=current_user.id).first()
     if existing_like:
         return jsonify({'message': 'You already liked this post'}), 400
 
-    like = Likes(
+    like = Like(
         news_id=id,
         user_id=current_user.id
     )
@@ -132,7 +132,7 @@ def add_like(id):
 @news_bp.route('/<int:id>/like/delete/', methods=['DELETE'])
 @login_required
 def remove_like(id):
-    like = Likes.query.get(id)
+    like = Like.query.get(id)
 
     db.session.delete(like)
     db.session.commit()

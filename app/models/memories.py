@@ -15,7 +15,7 @@ class Memory(db.Model):
     comments = db.relationship('Comment', back_populates='memories', cascade='all, delete-orphan')
     images = db.relationship('Image', back_populates='memories')
     users = db.relationship('User', back_populates='memories')
-    user_likes = db.relationship('Likes', back_populates='memories', cascade='all, delete-orphan')
+    user_likes = db.relationship('Like', back_populates='memories', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

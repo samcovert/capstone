@@ -3,7 +3,7 @@ from sqlalchemy import event
 from .news import News
 from .memories import Memory
 
-class Likes(db.Model):
+class Like(db.Model):
     __tablename__ = 'likes'
 
     if environment == "production":
@@ -28,7 +28,7 @@ class Likes(db.Model):
         }
 
 
-@event.listens_for(Likes, 'after_insert')
+@event.listens_for(Like, 'after_insert')
 def after_insert(mapper, connection, target):
     if target.news_id:
         connection.execute(
@@ -44,7 +44,7 @@ def after_insert(mapper, connection, target):
         )
 
 
-@event.listens_for(Likes, 'after_delete')
+@event.listens_for(Like, 'after_delete')
 def after_delete(mapper, connection, target):
     if target.news_id:
         connection.execute(
