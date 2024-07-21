@@ -52,15 +52,18 @@ const News = () => {
                 {news.map(post => (
                     <NavLink key={post.id} to={`/news/${post.id}`}>
                     <div className="news-card">
-
-                            <div>{post.users.username}</div>
-                            <div>{post.title}</div>
-                            <div>{post.details}</div>
-
+                            <div className="news-card-user">{post.users.username}</div>
+                            <div className="news-card-title">{post.title}</div>
+                            <div className="news-card-details">{post.details}</div>
+                        <div className="news-card-bottom">
                         <button
                             className={`like-button ${post.user_likes.some(like => like.user_id === user.id) ? 'liked' : ''}`}
                             onClick={(e) => handleLike(post, e)}><BiSolidLike /> {post.likes}
                         </button>
+                        <div className="news-card-bottom-comments">
+                            {post.comments?.length} {post.comments?.length === 1 ? 'comment' : 'comments'}
+                        </div>
+                        </div>
                     </div>
                     </NavLink>
                 ))}

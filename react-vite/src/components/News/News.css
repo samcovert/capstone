@@ -50,8 +50,39 @@
     color: #8c1d40;
 }
 
-.news-card div {
+.news-card-user {
+    color: #333;
+    font-size: small;
     margin-bottom: 10px;
+}
+
+.news-card-title {
+    color: black;
+    font-size: large;
+    text-shadow: 1px 1px 1px #8c1d40;
+    margin-bottom: 10px;
+}
+
+.news-card-details {
+    color: rgb(17, 17, 17);
+    margin-bottom: 10px;
+}
+
+.news-card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.news-card-bottom-comments {
+    text-align: right;
+    align-self: flex-end;
+    color: #8c1d40;
+}
+
+.news-card-bottom .like-button {
+    margin-left: 0px;
 }
 
 .like-button {

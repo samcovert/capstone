@@ -25,7 +25,8 @@
     margin-bottom: 15px;
     font-size: 1.2em;
     color: #8c1d40;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 1px #e6c9a5;
+    font-weight: bold;
 }
 
 .create-merch-form input {
@@ -47,17 +48,19 @@
     width: 100%;
     font-size: 1.2em;
     color: #8c1d40;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 1px #e6c9a5;
     margin-bottom: 0px;
+    font-weight: bold;
 }
 
 .input-image-update {
     width: 100%;
     font-size: 1.2em;
     color: #8c1d40;
-    text-shadow: 1px 1px 1px black;
+    text-shadow: 1px 1px 1px #e6c9a5;
     margin-bottom: 0px;
     margin-top: 5px;
+    font-weight: bold;
 }
 
 .add-another-image {

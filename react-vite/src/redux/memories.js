@@ -140,9 +140,11 @@ export const fetchAddImage = (image) => async (dispatch) => {
         },
         body: JSON.stringify(image)
     })
+
     if (res.ok) {
         const newImage = await res.json()
         dispatch(addImage(newImage))
+        dispatch(fetchOneMemory(newImage.id))
         return newImage
     }
 }
@@ -284,9 +286,10 @@ const memsReducer = (state=initialState, action) => {
             return newState
         }
         case ADD_IMAGE: {
-            const newState = {
-                ...state,
-                [action.image.id]: action.image
+            const newState = { ...state }
+            const mem = newState[action.image.memory_id]
+            if (mem) {
+                mem.images = mem.images ? [...mem.images, action.image] : [action.image]
             }
             return newState
         }
@@ -296,10 +299,12 @@ const memsReducer = (state=initialState, action) => {
                 [action.memory.id]: action.memory
             }
         } case EDIT_IMAGE: {
-            return {
-                ...state,
-                [action.image.id]: action.image
+            const newState = { ...state }
+            const mem = newState[action.image.memory_id]
+            if (mem) {
+                mem.images = mem.images.map(img => img.id === action.image.id ? action.image : img)
             }
+            return newState
         } case DELETE_MEMORY: {
             const newState = { ...state }
             delete newState[action.memoryId]

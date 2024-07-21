@@ -11,7 +11,7 @@ const UpdateMerch = () => {
     const merch = useSelector(state => state.merchandise[+merchId])
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState('');
     const [ogUrls, setOgUrls] = useState([])
     const [newUrls, setNewUrls] = useState([])
     const [errors, setErrors] = useState({})
@@ -23,7 +23,7 @@ const UpdateMerch = () => {
         if (merch) {
             setName(merch.name || '');
             setDescription(merch.description || '');
-            setPrice(merch.price || 0);
+            setPrice(merch.price || '');
             const urls = merch.images ? merch.images.map(image => image.url) : []
             setOgUrls(urls)
         }
@@ -58,7 +58,7 @@ const UpdateMerch = () => {
 
         if (name.trim().length === 0) validationErrors.name = 'Give your item a name'
         if (description.trim().length === 0) validationErrors.description = 'Give your item a description'
-        if (price.trim().length === 0 || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
+        if (!price || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
         const isValidUrl = (ogUrls) => {
             try {
                 new URL(ogUrls);
@@ -89,15 +89,15 @@ const UpdateMerch = () => {
             return;
         } else {
             const payload = {
-                name: name,
-                description: description,
+                name: name.trim(),
+                description: description.trim(),
                 price: price
             }
             const updatedItem = await dispatch(fetchEditItem(payload, merchId))
 
             for (let i = 0; i < ogUrls.length; i++) {
                 await dispatch(fetchEditImage({
-                    url: ogUrls[i],
+                    url: ogUrls[i].trim(),
                     merch_id: merchId,
                     image_id: merch.images[i].id
                 }))
@@ -105,7 +105,7 @@ const UpdateMerch = () => {
 
             for (let url of newUrls) {
                 await dispatch(fetchAddImage({
-                    url: url,
+                    url: url.trim(),
                     merch_id: merchId
                 }));
             }

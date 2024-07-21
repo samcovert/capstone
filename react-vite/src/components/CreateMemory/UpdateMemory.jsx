@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { fetchAddImage, fetchEditMemory, fetchOneMemory } from "../../redux/memories"
@@ -90,14 +90,15 @@ const UpdateMemory = () => {
             return;
         } else {
             const payload = {
-                title: title,
-                details: details
+                title: title.trim(),
+                details: details.trim()
             }
             const updatedMem = await dispatch(fetchEditMemory(payload, memoryId))
 
+        if (updatedMem) {
             for (let i = 0; i < ogUrls.length; i++) {
                 await dispatch(fetchEditImage({
-                    url: ogUrls[i],
+                    url: ogUrls[i].trim(),
                     memory_id: memoryId,
                     image_id: memory.images[i].id
                 }))
@@ -105,12 +106,12 @@ const UpdateMemory = () => {
 
             for (let url of newUrls) {
                 await dispatch(fetchAddImage({
-                    url: url,
+                    url: url.trim(),
                     memory_id: memoryId
                 }))
             }
 
-            if (updatedMem) {
+
                 navigate(`/memories/${memoryId}`)
             }
         }
@@ -118,9 +119,9 @@ const UpdateMemory = () => {
 
     return (
         <>
-        <h1>Update Your Memory</h1>
+        <h1 className="create-memory-header">Update Your Memory</h1>
         <form className="create-memory-form" onSubmit={handleSubmit}>
-            <label>
+            <label className="create-memory-form-title">
                 Title
                 <input
                     type="text"
@@ -130,50 +131,49 @@ const UpdateMemory = () => {
                 />
             </label>
             {errors.title && <p className="form-errors">{errors.title}</p>}
-            <label>
+            <label className="create-memory-form-details">
                 Details
-                <input
-                    type="text"
+                <textarea
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     placeholder="Details"
+                    rows='5'
                 />
             </label>
             {errors.details && <p className="form-errors">{errors.details}</p>}
+            <div className="input-image">
+                    {ogUrls.length <= 1 ? 'Original Image' : 'Original Images'}
+            </div>
             {ogUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add an Image
+                    <Fragment key={i}>
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleOgImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
-                        {i !== 0 && (
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
-                        )}
                         {errors.ogUrls && <p className="form-errors">{errors.ogUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
+                <div className="input-image-update">
+                    Add a New Image
+                </div>
                 {newUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add a New Image
+                    <Fragment key={i}>
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleNewImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                <span className="remove-image-button-span">
+                        <button className="remove-image-field" type="button" onClick={() => removeImageField(i)}>Remove</button>
+                    </span>
                         {errors.newUrls && <p className="form-errors">{errors.newUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
-                <button type='button' onClick={addImageField}>Add Another Image</button>
-                <button className="Memory-form-submit" type="submit">Update Memory</button>
+                <button className="add-another-image" type='button' onClick={addImageField}>Add Another Image</button>
+                <button className="memory-form-submit" type="submit">Update Memory</button>
             </form>
         </>
     )

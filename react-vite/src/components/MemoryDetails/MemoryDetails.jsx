@@ -63,7 +63,7 @@ const MemoryDetails = () => {
                 <div className="mem-det-image-section">
                     {selectedImage && <img className="mem-det-image" src={selectedImage} />}
                     <div className="mem-det-image-thumbnails">
-                        {memory.images.map(image => (
+                        {memory.images?.map(image => (
                             <img
                                 key={image.id}
                                 src={image.url}
@@ -76,7 +76,7 @@ const MemoryDetails = () => {
                 <div className="mem-det-content-container">
                     <div className="mem-det-content">{memory.details}</div>
                     <button
-                        className={`like-button ${memory.user_likes.some(like => like.user_id === user.id) ? 'liked' : ''}`}
+                        className={`like-button ${memory.user_likes?.some(like => like.user_id === user.id) ? 'liked' : ''}`}
                         onClick={(e) => handleLike(memory, e)}><BiSolidLike /> {memory.likes}
                     </button>
                 </div>
