@@ -12,9 +12,9 @@ import DeleteMemory from "../DeleteMemory"
 const UserProfile = () => {
     const dispatch = useDispatch()
     const user = useSelector(state => state.session.user)
-    const merch = useSelector(state => Object.values(state.merchandise).filter(item => item.user_id === user.id))
-    const news = useSelector(state => Object.values(state.news).filter(post => post.users.id === user.id))
-    const memories = useSelector(state => Object.values(state.memories).filter(memory => memory.user.id === user.id))
+    const merch = useSelector(state => Object.values(state.merchandise).filter(item => item.user_id === user?.id))
+    const news = useSelector(state => Object.values(state.news).filter(post => post.users?.id === user?.id))
+    const memories = useSelector(state => Object.values(state.memories).filter(memory => memory.user?.id === user?.id))
 
     useEffect(() => {
         dispatch(fetchAllMerch())
@@ -25,7 +25,7 @@ const UserProfile = () => {
     return (
         <>
         <h1>Your Items for Sale</h1>
-            {merch.map(item => (
+            {merch?.map(item => (
                 <div key={item.id} className="user-profile-card">
                     <h2 className="user-profile-name">{item.name}</h2>
                     <NavLink to={`/merch/${item.id}`}>
@@ -41,7 +41,7 @@ const UserProfile = () => {
                 </div>
             ))}
         <h1>Your News Posts</h1>
-            {news.map(post => (
+            {news?.map(post => (
                 <div key={post.id}>
                     <NavLink to={`/news/${post.id}`}>
                     <h3>{post.title}</h3>
@@ -57,10 +57,10 @@ const UserProfile = () => {
                 </div>
             ))}
         <h1>Your Memories</h1>
-            {memories.map(memory => (
+            {memories?.map(memory => (
                 <div key={memory.id}>
                     <NavLink to={`/memories/${memory.id}`}>
-                        {memory.images.map(img => (
+                        {memory.images?.map(img => (
                             <img key={img.id} src={img.url}></img>
                         ))}
                         <div>{memory.title}</div>
