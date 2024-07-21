@@ -6,6 +6,8 @@ const DELETE_NEWS = '/news/DELETE_NEWS'
 const ADD_COMMENT = '/news/ADD_COMMENT'
 const EDIT_COMMENT = '/news/EDIT_COMMENT'
 const DELETE_COMMENT = '/news/DELETE_COMMENT'
+const ADD_LIKE = '/news/ADD_LIKE'
+const REMOVE_LIKE = '/news/REMOVE_LIKE'
 
 const getAllNews = news => {
     return {
@@ -60,6 +62,21 @@ const deleteComment = commentId => {
     return {
         type: DELETE_COMMENT,
         commentId
+    }
+}
+
+const addLike = news => {
+    return {
+        type: ADD_LIKE,
+        news
+    }
+}
+
+const removeLike = (id, newsId) => {
+    return {
+        type: REMOVE_LIKE,
+        id,
+        newsId
     }
 }
 
@@ -168,6 +185,27 @@ export const fetchDeleteComment = (commentId, newsId) => async (dispatch) => {
     }
 }
 
+export const fetchAddLike = (newsId) => async (dispatch) => {
+    const res = await fetch(`/api/news/${newsId}/like/`, {
+        method: 'POST'
+    })
+    if (res.ok) {
+        const updatedNews = await res.json()
+        dispatch(addLike(updatedNews))
+        return updatedNews
+    }
+};
+
+export const fetchDeleteLike = (id, newsId) => async (dispatch) => {
+    const res = await fetch(`/api/news/${id}/like/delete/`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        dispatch(removeLike(id, newsId))
+        return
+    }
+}
+
 const initialState = {}
 const newsReducer = (state=initialState, action) => {
     switch (action.type) {
@@ -217,6 +255,22 @@ const newsReducer = (state=initialState, action) => {
             const newState = { ...state }
             delete newState[action.commentId]
             return newState
+        }
+        case ADD_LIKE: {
+            return {
+                ...state,
+                [action.news.id]: action.news
+            }
+        }
+        case REMOVE_LIKE: {
+            const newState = { ...state }
+            const post = { ...newState[action.newsId] }
+            if (post) {
+                post.user_likes = post.user_likes.filter(like => like.id !== action.id)
+                post.likes -= 1
+                newState[action.newsId] = post
+            }
+            return newState;
         }
         default:
             return state

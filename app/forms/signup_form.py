@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, ValidationError
 from app.models import User
 
 
@@ -19,9 +19,13 @@ def username_exists(form, field):
     if user:
         raise ValidationError('Username is already in use.')
 
+def check_whitespace(form, field):
+    if field.data.strip() != field.data:
+        raise ValidationError('Remove whitespace from this field.')
+
 
 class SignUpForm(FlaskForm):
     username = StringField(
-        'username', validators=[DataRequired(), username_exists])
-    email = StringField('email', validators=[DataRequired(), user_exists])
-    password = StringField('password', validators=[DataRequired()])
+        'username', validators=[DataRequired(), check_whitespace, username_exists])
+    email = StringField('email', validators=[DataRequired(), check_whitespace, user_exists])
+    password = StringField('password', validators=[DataRequired(), check_whitespace])

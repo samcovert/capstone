@@ -1,5 +1,39 @@
-.years {
+.history-title {
+    text-align: center;
+    font-size: 3em;
+    margin: 20px 0;
+    color: black;
+    text-shadow: 2px 2px 2px #8c1d40;
+}
+
+.history-sub {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 20px;
+    color: rgb(220, 219, 219);
+}
+
+.history-teams {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 20px;
+    padding: 20px 150px;
+}
+
+.history-team-year {
     display: flex;
-    flex-direction: column;
-    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #E2D6C7;
+    color: #8c1d40;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.history-team-year:hover {
+    background-color: #8c1d40;
+    color: #E2D6C7;
 }

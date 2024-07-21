@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useParams } from "react-router-dom"
 import { fetchAddImage, fetchEditImage, fetchEditItem, fetchMerchDetails } from "../../redux/merch"
@@ -11,7 +11,7 @@ const UpdateMerch = () => {
     const merch = useSelector(state => state.merchandise[+merchId])
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState('');
     const [ogUrls, setOgUrls] = useState([])
     const [newUrls, setNewUrls] = useState([])
     const [errors, setErrors] = useState({})
@@ -23,7 +23,7 @@ const UpdateMerch = () => {
         if (merch) {
             setName(merch.name || '');
             setDescription(merch.description || '');
-            setPrice(merch.price || 0);
+            setPrice(merch.price || '');
             const urls = merch.images ? merch.images.map(image => image.url) : []
             setOgUrls(urls)
         }
@@ -58,7 +58,7 @@ const UpdateMerch = () => {
 
         if (name.trim().length === 0) validationErrors.name = 'Give your item a name'
         if (description.trim().length === 0) validationErrors.description = 'Give your item a description'
-        if (price.trim().length === 0 || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
+        if (!price || isNaN(price) || parseFloat(price) <= 0) validationErrors.price = 'Your Product needs a price'
         const isValidUrl = (ogUrls) => {
             try {
                 new URL(ogUrls);
@@ -89,15 +89,15 @@ const UpdateMerch = () => {
             return;
         } else {
             const payload = {
-                name: name,
-                description: description,
+                name: name.trim(),
+                description: description.trim(),
                 price: price
             }
             const updatedItem = await dispatch(fetchEditItem(payload, merchId))
 
             for (let i = 0; i < ogUrls.length; i++) {
                 await dispatch(fetchEditImage({
-                    url: ogUrls[i],
+                    url: ogUrls[i].trim(),
                     merch_id: merchId,
                     image_id: merch.images[i].id
                 }))
@@ -105,7 +105,7 @@ const UpdateMerch = () => {
 
             for (let url of newUrls) {
                 await dispatch(fetchAddImage({
-                    url: url,
+                    url: url.trim(),
                     merch_id: merchId
                 }));
             }
@@ -151,36 +151,39 @@ const UpdateMerch = () => {
                     />
                 </label>
                 {errors.price && <p className="form-errors">{errors.price}</p>}
+                <div className="input-image">
+                    {ogUrls.length <= 1 ? 'Original Image' : 'Original Images'}
+                </div>
                 {ogUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Original Image
+                    <Fragment key={i}>
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleOgImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
                         {errors.ogUrls && <p className="form-errors">{errors.ogUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
+                <div className="input-image-update">
+                    Add a New Image
+                    </div>
                 {newUrls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add a New Image
+                    <Fragment key={i}>
+
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleNewImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                <span className="remove-image-button-span">
+                        <button className="remove-image-field" type="button" onClick={() => removeImageField(i)}>Remove</button>
+                    </span>
                         {errors.newUrls && <p className="form-errors">{errors.newUrls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
-                <button type='button' onClick={addImageField}>Add Another Image</button>
+                <button className="add-another-image" type='button' onClick={addImageField}>Add Another Image</button>
                 <button className="merch-form-submit" type="submit">Update Item</button>
             </form>
         </>

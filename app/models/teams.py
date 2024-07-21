@@ -22,5 +22,8 @@ class Team(db.Model):
             'year': self.year,
             'team_name': self.team_name,
             'logo': self.logo,
-            'players': [player.to_dict() for player in self.players]
+            'players': [player.to_dict() for player in self.players],
+            'record': self.record,
+            'playoffs': self.playoffs,
+            'coach': self.coach
         }

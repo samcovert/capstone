@@ -1,8 +1,8 @@
-import { useState } from "react"
+import { Fragment, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { fetchCreateMemory, fetchAddImage } from "../../redux/memories"
-
+import './CreateMemory.css'
 
 const CreateMemory = () => {
     const dispatch = useDispatch()
@@ -54,28 +54,30 @@ const CreateMemory = () => {
             return;
         } else {
             const payload = {
-                title: title,
-                details: details
+                title: title.trim(),
+                details: details.trim()
             }
             const newMem = await dispatch(fetchCreateMemory(payload))
-            const newMemId = newMem.id
 
-            for (let url of urls) {
-                await dispatch(fetchAddImage({
-                    url: url,
-                    merch_id: +newMemId
-                }))
-            }
             if (newMem) {
-                navigate(`/memories/${+newMem.id}`)
+                const newMemId = newMem.id;
+
+                for (let url of urls) {
+                    await dispatch(fetchAddImage({
+                        url: url.trim(),
+                        memory_id: +newMemId
+                    }));
+                }
+                navigate(`/memories/${+newMem.id}`);
             }
         }
     }
+
     return (
         <>
-        <h1>Create a Memory</h1>
+        <h1 className="create-memory-header">Create a Memory</h1>
         <form className="create-memory-form" onSubmit={handleSubmit}>
-            <label>
+            <label className="create-memory-form-title">
                 Title
                 <input
                     type="text"
@@ -85,35 +87,37 @@ const CreateMemory = () => {
                 />
             </label>
             {errors.title && <p className="form-errors">{errors.title}</p>}
-            <label>
+            <label className="create-memory-form-details">
                 Details
-                <input
-                    type="text"
+                <textarea
                     value={details}
                     onChange={(e) => setDetails(e.target.value)}
                     placeholder="Details"
+                    rows='5'
                 />
             </label>
             {errors.details && <p className="form-errors">{errors.details}</p>}
+            <div className="input-image">
+                Add an Image
+            </div>
             {urls.map((url, i) => (
-                    <div key={i}>
-                        <label className="input-image">
-                            Add an Image
+                    <Fragment key={i}>
                             <input
                                 type="text"
                                 value={url}
                                 onChange={(e) => handleImageChange(i, e.target.value)}
                                 placeholder="Image URL"
                             />
-                        </label>
                         {i !== 0 && (
-                        <button type="button" onClick={() => removeImageField(i)}>Remove</button>
+                       <span className="remove-image-button-span">
+                       <button className="remove-image-field" type="button" onClick={() => removeImageField(i)}>Remove</button>
+                       </span>
                         )}
                         {errors.urls && <p className="form-errors">{errors.urls}</p>}
-                    </div>
+                    </Fragment>
                 ))}
-                <button type='button' onClick={addImageField}>Add Another Image</button>
-                <button className="Memory-form-submit" type="submit">Post Memory</button>
+                <button className="add-another-image" type='button' onClick={addImageField}>Add Another Image</button>
+                <button className="memory-form-submit" type="submit">Post Memory</button>
         </form>
         </>
     )
