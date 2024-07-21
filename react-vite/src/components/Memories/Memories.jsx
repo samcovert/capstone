@@ -103,7 +103,7 @@ const Memories = () => {
                                 </div>
                                 <div className="mem-bottom-actions">
                                     <button
-                                        className={`like-button ${mem.user_likes?.some(like => like.user_id === user.id) ? 'liked' : ''}`}
+                                        className={`like-button ${mem.user_likes?.some(like => like.user_id === user?.id) ? 'liked' : ''}`}
                                         onClick={(e) => handleLike(mem, e)}><BiSolidLike /> {mem.likes}
                                     </button>
                                     <div className="mem-bottom-comments">
