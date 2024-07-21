@@ -57,7 +57,7 @@ const News = () => {
                             <div className="news-card-details">{post.details}</div>
                         <div className="news-card-bottom">
                         <button
-                            className={`like-button ${post.user_likes.some(like => like.user_id === user.id) ? 'liked' : ''}`}
+                            className={`like-button ${post.user_likes?.some(like => like.user_id === user?.id) ? 'liked' : ''}`}
                             onClick={(e) => handleLike(post, e)}><BiSolidLike /> {post.likes}
                         </button>
                         <div className="news-card-bottom-comments">

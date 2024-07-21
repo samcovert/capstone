@@ -7,6 +7,7 @@ from .merchandise import seed_merch, undo_merch
 from .news import seed_news, undo_news
 from .players import seed_players, undo_players
 from .teams import seed_teams, undo_teams
+from .likes import seed_likes, undo_likes
 
 from app.models.db import db, environment, SCHEMA
 
@@ -31,6 +32,7 @@ def seed():
         undo_merch()
         undo_news()
         undo_players()
+        undo_likes()
     seed_users()
     seed_memories()
     seed_news()
@@ -39,6 +41,7 @@ def seed():
     seed_players()
     seed_images()
     seed_comments()
+    seed_likes()
     # Add other seed functions here
 
 
@@ -53,4 +56,5 @@ def undo():
     undo_players()
     undo_comments()
     undo_images()
+    undo_likes()
     # Add other undo functions here
