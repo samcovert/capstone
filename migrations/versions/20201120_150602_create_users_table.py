@@ -135,16 +135,16 @@ def upgrade():
     **schema_args
     )
 
-    # if environment == "production":
-    #     op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE teams SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE players SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE memories SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE merchandise SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE news SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
-    #     op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
+    if environment == "production":
+        op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE teams SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE players SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE memories SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE merchandise SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE news SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE images SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE comments SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
     # ### end Alembic commands ###qqqqqqqqq
 
 
