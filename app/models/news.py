@@ -14,7 +14,7 @@ class News(db.Model):
 
     comments = db.relationship('Comment', back_populates='news', cascade='all, delete-orphan')
     users = db.relationship('User', back_populates='news')
-    user_likes = db.relationship('Likes', back_populates='news', cascade='all, delete-orphan')
+    user_likes = db.relationship('Like', back_populates='news', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

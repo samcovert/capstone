@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     memories = db.relationship('Memory', back_populates='users', cascade='all, delete-orphan')
     comments = db.relationship('Comment', back_populates='users', cascade='all, delete-orphan')
     news = db.relationship('News', back_populates='users', cascade='all, delete-orphan')
-    likes = db.relationship('Likes', back_populates='user', cascade='all, delete-orphan')
+    likes = db.relationship('Like', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
