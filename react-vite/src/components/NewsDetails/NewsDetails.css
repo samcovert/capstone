@@ -109,16 +109,16 @@
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    color: #fff;
-    background-color: #5e22a6;
+    color: #E2D6C7;
+    background-color: #8c1d40;
     transition: background-color 0.2s ease-in-out;
     width: 55px;
     margin: 0px;
 }
 
 .comment-buttons .update-comment:hover {
-    background-color: rgb(241, 177, 121);
-    transform: none;
+    background-color: #E2D6C7;
+    color: #8c1d40;
 }
 
 .comment-buttons .delete-comment {
