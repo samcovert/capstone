@@ -1,23 +1,39 @@
-.merch-container {
+.merch-page-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #ffffff30;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.merch-item-container {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     justify-content: center;
 }
 
-.merch.card {
-    background-color: #fff;
-    border: .5px solid black;
+.merch-card {
+    background-color: #f9f9f984;
+    border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9);
     overflow: hidden;
     width: 300px;
     margin: 10px;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease-in-out;
     cursor: pointer;
+    padding: 15px;
 }
 
-.merch.card:hover {
+.merch-card-user {
+    color: #333;
+    font-size: small;
+    margin-bottom: 10px;
+}
+
+.merch-card:hover {
     transform: scale(1.01);
 }
 
@@ -26,13 +42,19 @@
     height: 250px;
 }
 
+.merch-card-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .merch-name {
     font-size: 1.2em;
-    font-weight: bold;
-    padding: 10px 0;
+    font-weight: 400;
+    padding: 20px 0 10px;
     text-align: center;
     color: black;
+    text-shadow: 1px 1px 1px #8c1d40;
 }
 
 .merch-price {
@@ -46,6 +68,7 @@
 
 .merch-card-links {
     text-decoration: none;
+    width: 100%;
 }
 
 .carousel {
@@ -53,6 +76,7 @@
     width: 100%;
     height: 250px;
     overflow: hidden;
+    border-radius: 8px;
 }
 
 .carousel-item {
@@ -65,20 +89,19 @@
 
 .carousel-item.active {
     opacity: 1;
-    /* z-index: 1; */
 }
 
 .carousel-arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
     font-size: 1em;
     cursor: pointer;
-    /* z-index: 2; */
     padding: 10px;
+    border-radius: 8px;
 }
 
 .carousel-arrow.left {
@@ -96,7 +119,7 @@
 .merch-title {
     text-align: center;
     font-size: 2.5em;
-    margin-top: 20px;
+    margin-top: 10px;
     text-shadow: 2px 2px 2px #8c1d40;
 }
 
@@ -104,35 +127,40 @@
     text-align: center;
     font-size: 1.5em;
     margin-bottom: 20px;
+    color: #8c1d40;
+    text-shadow: 1px 1px 1px #E2D6C7;
+    font-weight: 500;
 }
 
 .sell-button {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: purple;
-    color: white;
+    background-color: #8c1d40;
+    color: #E2D6C7;
     border: none;
     border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .sell-button-link {
     text-decoration: none;
 }
 
-.sell-button:hover, .signup-button:hover {
-    background-color: rgb(88, 1, 88);
+.merch-page-container>.sell-button:hover, .signup-button:hover {
+    background-color: #E2D6C7;
+    color: #8c1d40;
+    transform: scale(1.01);
 }
 
-.signup-button {
+.merch-page-container>.signup-button {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: purple;
-    color: white;
+    background-color: #8c1d40;
+    color: #E2D6C7;
     border: none;
     border-radius: 5px;
     font-size: 1em;

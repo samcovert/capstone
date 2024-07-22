@@ -129,12 +129,13 @@ a {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
     font-size: 1em;
     cursor: pointer;
     padding: 10px;
+    border-radius: 8px;
 }
 
 .mem-carousel-arrow.left {

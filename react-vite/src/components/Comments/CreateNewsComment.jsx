@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchAddComment, fetchEditComment, fetchNewsDetails } from "../../redux/news"
 import { useModal } from "../../context/Modal"
+import './CreateComment.css'
 
 
 const CreateNewsComment = ({ newsId, comment=null }) => {
@@ -28,7 +29,7 @@ const CreateNewsComment = ({ newsId, comment=null }) => {
             return
         } else {
             const payload = {
-                content: content,
+                content: content.trim(),
                 user_id: user.id,
                 news_id: newsId
             }
@@ -50,17 +51,19 @@ const CreateNewsComment = ({ newsId, comment=null }) => {
 
     return (
         <>
-            <h1>Comment</h1>
-            <form onSubmit={handleSubmit}>
+        <div className="comment-modal-container">
+            <h1 className="comment-header">Join the Discussion</h1>
+            <form className="comment-form" onSubmit={handleSubmit}>
                 <textarea
                     type="text"
                     value={content}
                     onChange={(e) => setContent(e.target.value)}
                     placeholder="Leave Your Thoughts"
                 />
-                {errors.content && <p className="errors">{errors.content}</p>}
-                <button type="submit">{comment ? 'Update Comment' : 'Post Comment'}</button>
+                {errors.content && <p className="form-errors">{errors.content}</p>}
+                <button className="comment-submit" type="submit">{comment ? 'Update Comment' : 'Post Comment'}</button>
             </form>
+            </div>
         </>
     )
 }
