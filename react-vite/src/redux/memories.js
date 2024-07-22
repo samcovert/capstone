@@ -74,10 +74,11 @@ const editComment = comment => {
     }
 }
 
-const deleteComment = commentId => {
+const deleteComment = (commentId, memoryId) => {
     return {
         type: DELETE_COMMENT,
-        commentId
+        commentId,
+        memoryId
     }
 }
 
@@ -311,21 +312,29 @@ const memsReducer = (state=initialState, action) => {
             return newState
         }
         case ADD_COMMENT: {
-            const newState = {
-                ...state,
-                [action.comment.id]: action.comment
+            const newState = { ...state }
+            const mem = newState[action.comment.mem_id]
+            if (mem) {
+                mem.comments = [...mem.comments, action.comment]
             }
             return newState
         }
         case EDIT_COMMENT: {
-            return {
-                ...state,
-                [action.comment.id]: action.comment
+            const newState = { ...state }
+            const mem = newState[action.comment.memory_id]
+            if (mem) {
+                mem.comments = mem.comments.map(comment =>
+                    comment.id === action.comment.id ? action.comment : comment
+                )
             }
+            return newState
         }
         case DELETE_COMMENT: {
             const newState = { ...state }
-            delete newState[action.commentId]
+            const mem = newState[action.memoryId]
+            if (mem) {
+                mem.comments = mem.comments.filter(comment => comment.id !== action.commentId)
+            }
             return newState
         }
         case ADD_LIKE: {
