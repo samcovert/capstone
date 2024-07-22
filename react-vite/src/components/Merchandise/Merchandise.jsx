@@ -48,7 +48,7 @@ const Merchandise = () => {
     if (!merchandise) {
         return <h1>Loading...</h1>
     }
-// console.log(merchandise)
+
     return (
         <>
             <h1 className='merch-title'>Welcome to the Coyotes Merch Store!</h1>
@@ -65,7 +65,7 @@ const Merchandise = () => {
             )}
             <div className='merch-container'>
                 {merchandise?.map(merch => (
-                    <div key={merch.id} className="merch card">
+                    <div key={merch.id} className="merch-card">
                         <div className="carousel">
                     <Link to={`/merch/${merch.id}`}>
                             {merch.images?.map((image, index) => (

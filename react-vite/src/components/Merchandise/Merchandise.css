@@ -5,7 +5,7 @@
     justify-content: center;
 }
 
-.merch.card {
+.merch-card {
     background-color: #fff;
     border: .5px solid black;
     border-radius: 8px;
@@ -17,7 +17,7 @@
     cursor: pointer;
 }
 
-.merch.card:hover {
+.merch-card:hover {
     transform: scale(1.01);
 }
 

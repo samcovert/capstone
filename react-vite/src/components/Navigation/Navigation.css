@@ -1,15 +1,14 @@
 .profile-dropdown {
-  position: absolute;
-  top: 67px;
-  right: 8px;
-  width: 100px;
-  background-color: maroon;
-  border: 1px solid black;
+  position: fixed;
+  top: 78px;
+  right: 9px;
+  width: auto;
+  background-color: black;
+  border: 1px solid #E2D6C7;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
   z-index: 100;
-  cursor: pointer;
   /* padding: 10px 0; */
   display: flex;
   flex-direction: column;
@@ -27,22 +26,22 @@
 }
 
 .sticks {
-  border: none;
+  border: 1px solid #8c1d40;
   border-radius: 8px;
   text-decoration: none;
-  transition: background-color 0.3s, padding 0.3s, margin 0.3s;
+  transition: background-color 0.3s;
   cursor: pointer;
-  background-color: rgb(242, 174, 114);
+  background-color: #E2D6C7;
   margin-right: 10px;
 }
 
-.dropdown-button-image {
-  padding-left: 7px;
-  height: 30px;
+.sticks:hover {
+  background-color: #8c1d40;
+  border: 1px solid #E2D6C7;
 }
 
-.dropdown-button-text {
-  font-family: system-ui, 'Segoe UI', 'Open Sans', 'Helvetica Neue', sans-serif
+.dropdown-button-image {
+  padding: 2px;
 }
 
 .logo {
@@ -50,6 +49,7 @@
   width: 110px;
   padding-left: 20px;
   padding-right: 20px;
+  margin: 5px 0px;
 }
 
 .nav-bar {
@@ -60,37 +60,35 @@
 }
 
 .nav-bottom {
-  background-color: #8C2633;
+  background-color: #8c1d40;
   display: flex;
   justify-content: center;
 }
 
 .nav-item {
   text-decoration: none;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-left: 2px solid white;
-  border-right: 2px solid white;
-  /* border: 2px solid white; */
-  transition: all 0.3s ease;
-  font-family: 'Roboto' serif;
+  color: #E2D6C7;
+  padding: 0px 30px;
+  margin: 0px 5px;
+  transition: background-color 0.3s ease, border .1s linear;
+  font-family: 'Roboto';
+  font-weight: 400;
+  font-size: 15px;
 }
 
-.nav-item-div {
-  padding-left: 5px;
-  padding-right: 5px;
+.nav-item:hover {
+  border: 2px solid #E2D6C7;
+  border-radius: 5px;
 }
 
 .nav-item.active {
-  color: rgb(241, 177, 121);
-  font-weight: bolder;
-  text-shadow: 0px 0px 2px rgb(97, 13, 13);
-  background-color: rgb(135, 43, 43);
-  border-left: 2px solid rgb(241, 177, 121);
-  border-right: 2px solid rgb(241, 177, 121);
-  transform: scale(1.08);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #E2D6C7;
+  color: #8c1d40;
+  font-weight: 700;
+  border: 1px solid #E2D6C7;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 2px rgb(0, 0, 0);
+  border-radius: 5px;
 }
 
 
@@ -99,4 +97,80 @@
   margin-right: 85px;
   font-family: 'Courier New', Courier, monospace;
   font-size: 30px;
+}
+
+.login-dropdown-button {
+  background-color: #E2D6C7;
+  color: #8c1d40;
+  border: none;
+  border-radius: 3px;
+  margin: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.signup-dropdown-button {
+  background-color: #E2D6C7;
+  color: #8c1d40;
+  margin: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #E2D6C7;
+  border-radius: 5px
+}
+
+.login-dropdown-button:hover {
+  background-color: #8c1d40;
+  color: #E2D6C7;
+}
+
+.signup-dropdown-button:hover {
+  background-color: #8c1d40;
+  color: #E2D6C7;
+}
+
+.dropdown-logged-in {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+}
+
+.dropdown-username {
+  color: #8c1d40;
+  text-shadow: 1px 1px 1px #E2D6C7;
+  align-self: center;
+}
+
+.user-profile-button {
+  background-color: #E2D6C7;
+  color: #8c1d40;
+  margin: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #E2D6C7;
+  border-radius: 5px
+}
+
+.dropdown-logout {
+  background-color: #E2D6C7;
+  color: #8c1d40;
+  margin: 10px;
+  padding: 5px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: 1px solid #E2D6C7;
+  border-radius: 5px
+}
+
+.user-profile-button:hover {
+  background-color: #8c1d40;
+  color: #E2D6C7;
+}
+
+.dropdown-logout:hover {
+  background-color: #8c1d40;
+  color: #E2D6C7;
 }

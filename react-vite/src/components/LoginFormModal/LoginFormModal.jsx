@@ -28,10 +28,32 @@ function LoginFormModal() {
     }
   };
 
+  const handleDemoLogin = async (e) => {
+    e.preventDefault()
+
+    setEmail('demo@aa.io')
+    setPassword('password')
+    const serverResponse = await dispatch(
+      thunkLogin({
+        email: 'demo@aa.io',
+        password: 'password'
+      })
+    );
+
+    if (serverResponse) {
+      setErrors(serverResponse);
+    } else {
+      closeModal();
+    }
+  }
+
   return (
     <>
-      <h1>Log In</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h1 className="login-header">Log In</h1>
+      {errors.length > 0 &&
+        errors.map((message) => <p className="form-errors" key={message}>{message}</p>)}
+      <form className="login-form" onSubmit={handleSubmit}>
         <label>
           Email
           <input
@@ -41,7 +63,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="form-errors">{errors.email}</p>}
         <label>
           Password
           <input
@@ -51,9 +73,13 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <button type="submit">Log In</button>
+        {errors.password && <p className="form-errors">{errors.password}</p>}
+        <div className="login-modal-buttons">
+        <button onClick={handleDemoLogin} className="demo-login-button">Demo User</button>
+        <button className="login-modal-button" type="submit">Log In</button>
+        </div>
       </form>
+      </div>
     </>
   );
 }

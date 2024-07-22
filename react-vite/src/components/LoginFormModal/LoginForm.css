@@ -1,0 +1,88 @@
+.login-container {
+    background-color: #8c1d40b8;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px black;
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+}
+
+.login-header {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: black;
+    text-shadow: 1px 1px 1px #E2D6C7;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    padding-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+    width: 80%;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #E2D6C7;
+}
+
+.login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.login-form input:focus {
+    border-color: #E2D6C7;
+}
+
+.login-modal-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    gap: 135px;
+    margin-left: 20px;
+}
+
+.login-modal-button {
+    background-color: #E2D6C7;
+    color: #8c1d40;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-modal-button:hover {
+    background-color: #8c1d40;
+    color: #E2D6C7;
+}
+
+.demo-login-button {
+    background-color: black;
+    color: #E2D6C7;
+    padding: 0px 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.demo-login-button:hover {
+    background-color: #8c1d40;
+    color: #E2D6C7;
+}

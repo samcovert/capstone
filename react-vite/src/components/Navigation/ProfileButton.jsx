@@ -54,23 +54,15 @@ function ProfileButton() {
         <div className="dropdown-button-image">
         <MdSportsHockey className="profile-icon" />
         </div>
-        <div className="dropdown-button-text">
-        Profile
-        </div>
       </button>
       {showMenu && (
-        <ul className={"profile-dropdown"} ref={ulRef}>
+        <div className={"profile-dropdown"} ref={ulRef}>
           {user ? (
-            <>
-            <div>
+            <div className="dropdown-logged-in">
+              <div className="dropdown-username">{user.username}</div>
               <button className="user-profile-button" onClick={userProfile}>My Profile</button>
+              <button className="dropdown-logout" onClick={logout}>Log Out</button>
             </div>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
-              </li>
-            </>
           ) : (
             <>
               <OpenModalMenuItem
@@ -85,7 +77,7 @@ function ProfileButton() {
               />
             </>
           )}
-        </ul>
+        </div>
       )}
     </>
   );
