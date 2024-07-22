@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Merchandise.css';
 import { useEffect, useState } from 'react';
 import { fetchAllMerch } from '../../redux/merch';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginFormModal from '../LoginFormModal';
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 
 const Merchandise = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const merchandise = useSelector(state => Object.values(state.merchandise));
     const user = useSelector(state => state.session.user);
     const [currentIndexes, setCurrentIndexes] = useState({});
@@ -51,21 +52,21 @@ const Merchandise = () => {
 
     return (
         <>
+        <div className='merch-page-container'>
             <h1 className='merch-title'>Welcome to the Coyotes Merch Store!</h1>
             <h2 className='merch-subtitle'>Sell your old Coyotes merchandise, or buy things other fans are selling.</h2>
             {user ? (
-                <NavLink className='sell-button-link' to={'/merch/new'}>
-                    <button className='sell-button'>Add an item to sell</button>
-                </NavLink>
+                    <button className='sell-button' onClick={() => navigate('/merch/new')}>Add an item to sell</button>
             ) : (
                 <OpenModalButton
                     buttonText='Sign in to get started'
                     modalComponent={<LoginFormModal />}
                 />
             )}
-            <div className='merch-container'>
+            <div className='merch-item-container'>
                 {merchandise?.map(merch => (
                     <div key={merch.id} className="merch-card">
+                        <div className='merch-card-user'>Seller: {merch.user.username}</div>
                         <div className="carousel">
                     <Link to={`/merch/${merch.id}`}>
                             {merch.images?.map((image, index) => (
@@ -89,13 +90,11 @@ const Merchandise = () => {
                             <div className='merch-name'>
                                 {merch.name}
                             </div>
-                            <div className='merch-price'>
-                                ${merch.price}
-                            </div>
                         </Link>
                         </div>
                     </div>
                 ))}
+            </div>
             </div>
         </>
     );

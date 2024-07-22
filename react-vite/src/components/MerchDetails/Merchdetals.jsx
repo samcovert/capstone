@@ -43,8 +43,10 @@ const MerchDetails = () => {
         <>
             <div className="merch-det-page">
                 <div onClick={handleBack} className="back-button">Back to store</div>
-                <h1 className="merch-det-title">{merch.name}</h1>
                 <div className="merch-details-container">
+                <h1 className="merch-det-title">{merch.name}</h1>
+                    <div className="merch-det-main">
+                    <div className="merch-det-left">
                     <div className="merch-det-img-section">
                         {selectedImage && <img className="merch-det-img" src={selectedImage} alt="Merchandise" />}
                         <div className="merch-det-img-thumbnails">
@@ -58,6 +60,7 @@ const MerchDetails = () => {
                             ))}
                         </div>
                     </div>
+                    </div>
                     <div className="merch-det-content">
                         <div className="sold-by">Seller: {merch.user.username}</div>
                         <div className="merch-det-description">{merch.description}</div>
@@ -66,6 +69,7 @@ const MerchDetails = () => {
                             {user && (
                                 <button onClick={handleClick} className="buy-now-button">Buy this item</button>
                             )}
+                        </div>
                         </div>
                     </div>
                 </div>
