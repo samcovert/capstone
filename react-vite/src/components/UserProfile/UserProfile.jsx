@@ -32,20 +32,17 @@ const UserProfile = () => {
                 <div className="user-profile-container">
                     <h1 className="user-profile-sub">Your Items for Sale</h1>
                     {merch?.map(item => (
-                        <div key={item.id} className="user-merch-card">
+                        <div key={item.id} className="merch-card">
                             <div className="user-merch-content">
-                                <NavLink to={`/merch/${item.id}`} className="user-merch-link">
-                                    <img className="user-merch-image-tag" src={item.images[0]?.url} />
-                                    <div className='user-merch-card-bottom'>
-                                        <div className='user-merch-name'>
+                                <NavLink to={`/merch/${item.id}`}>
+                                    <img className="merch-image" src={item.images[0]?.url} />
+                                    <div className='merch-card-bottom'>
+                                        <div className='merch-name'>
                                             {item.name}
-                                        </div>
-                                        <div className='user-merch-price'>
-                                            ${item.price}
                                         </div>
                                     </div>
                                 </NavLink>
-                                <div className="user-merch-buttons">
+                                <div className="user-card-buttons">
                                     <OpenModalButton
                                         buttonText='Delete'
                                         modalComponent={<DeleteMerch merchId={item.id} />}
@@ -60,40 +57,46 @@ const UserProfile = () => {
                 <div className="user-profile-container">
                     <h1 className="user-profile-sub">Your News Posts</h1>
                     {news?.map(post => (
-                        <div className="user-news-card" key={post.id}>
+                        <>
+                                <div className="user-news-card" key={post.id}>
                             <NavLink to={`/news/${post.id}`}>
-                                <div className="user-news-card-title">{post.title}</div>
-                                <p className="user-news-card-details">{post.details}</p>
+                                    <div className="news-card-title">{post.title}</div>
+                                    <div className="news-card-details">{post.details}</div>
                             </NavLink>
-                            <NavLink to={`/news/${post.id}/edit`}>
-                                <button className="edit-button">Edit</button>
-                            </NavLink>
+                            <div className="user-card-buttons">
                             <OpenModalButton
-                                modalComponent={<DeleteNews newsId={post.id} />}
-                                buttonText='Delete'
-                            />
+                                    modalComponent={<DeleteNews newsId={post.id} />}
+                                    buttonText='Delete'
+                                />
+                                <NavLink to={`/news/${post.id}/edit`}>
+                                    <button className="edit-button">Edit</button>
+                                </NavLink>
+                            </div>
                         </div>
+                        </>
                     ))}
-                </div>
-                <div className="user-profile-container">
-                    <h1 className="user-profile-sub">Your Memories</h1>
-                    {memories?.map(memory => (
-                        <div className="user-mem-card" key={memory.id}>
-                            <NavLink to={`/memories/${memory.id}`}>
-                                <img className="user-mem-image" src={memory.images[0]?.url} />
-                                <div className="user-mem-card-title">{memory.title}</div>
-                            </NavLink>
-                            <NavLink to={`/memories/${memory.id}/edit`}>
-                                <button className="edit-button">Edit</button>
-                            </NavLink>
-                            <OpenModalButton
-                                modalComponent={<DeleteMemory memoryId={memory.id} />}
-                                buttonText='Delete'
-                            />
-                        </div>
-                    ))}
-                </div>
             </div>
+            <div className="user-profile-container">
+                <h1 className="user-profile-sub">Your Memories</h1>
+                {memories?.map(memory => (
+                    <div className="mem-card" key={memory.id}>
+                        <NavLink to={`/memories/${memory.id}`}>
+                            <img className="mem-image" src={memory.images[0]?.url} />
+                            <div className="mem-name">{memory.title}</div>
+                        </NavLink>
+                        <div className="user-card-buttons">
+                        <OpenModalButton
+                            modalComponent={<DeleteMemory memoryId={memory.id} />}
+                            buttonText='Delete'
+                        />
+                        <NavLink to={`/memories/${memory.id}/edit`}>
+                            <button className="edit-button">Edit</button>
+                        </NavLink>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div >
         </>
     )
 }

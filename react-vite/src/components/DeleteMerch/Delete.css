@@ -1,0 +1,66 @@
+.delete-modal-container {
+    background-color: #8c1d40b8;
+    border-radius: 8px;
+    box-shadow: 2px 2px 2px black;
+    width: 400px;
+    margin: auto;
+    padding: 10px;
+}
+
+.delete-form-header {
+    text-align: center;
+    font-size: 38px;
+    margin-bottom: 30px;
+    color: black;
+    text-shadow: 1px 1px 1px #E2D6C7;
+}
+
+.delete-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    padding-top: 5px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.delete-actions {
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    gap: 135px;
+    margin-left: 20px;
+}
+
+.delete-button {
+    background-color: #E2D6C7;
+    color: #8c1d40;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #8c1d40;
+    color: #E2D6C7;
+}
+
+.cancel-button {
+    background-color: #8c1d40;
+    color: #E2D6C7;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cancel-button:hover {
+    background-color: #E2D6C7;
+    color: #8c1d40;
+}

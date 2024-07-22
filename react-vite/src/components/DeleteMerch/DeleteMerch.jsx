@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useState } from "react";
 import { fetchDeleteMerch } from "../../redux/merch";
+import './Delete.css'
 
 
 const DeleteMerch = ({ merchId }) => {
@@ -22,19 +23,17 @@ const DeleteMerch = ({ merchId }) => {
 
     return (
         <>
-        <div className="delete-modal">
-            <div className="delete-content">
-                <form>
-                    <h3>Are you sure you want to delete this item?</h3>
+        <div className="delete-modal-container">
+        <h1 className="delete-form-header">Are you sure you want to delete this item?</h1>
+                <form className="delete-form">
                     {errors.message && (
-                        <div className="errors">{errors.message}</div>
+                        <div className="form-errors">{errors.message}</div>
                     )}
                     <div className="delete-actions">
-                        <button className="delete-button" onClick={handleClick}>Yes (Delete It)</button>
-                        <button className="cancel-button" onClick={closeModal}>No (Keep It)</button>
+                        <button className="delete-button" onClick={handleClick}>Yes</button>
+                        <button className="cancel-button" onClick={closeModal}>No</button>
                     </div>
                 </form>
-            </div>
         </div>
         </>
     )
