@@ -46,7 +46,6 @@ const UserProfile = () => {
                                     <OpenModalButton
                                         buttonText='Delete'
                                         modalComponent={<DeleteMerch merchId={item.id} />}
-                                        onButtonClick={(e) => { e.preventDefault(); e.stopPropagation(); }}
                                     />
                                     <button className="edit-button" onClick={(e) => { e.preventDefault(); navigate(`/merch/${item.id}/edit`) }}>Edit</button>
                                 </div>
