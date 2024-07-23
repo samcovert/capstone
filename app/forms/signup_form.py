@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, ValidationError
+from wtforms.validators import DataRequired, ValidationError, Regexp
 from app.models import User
 
 
@@ -27,5 +27,5 @@ def check_whitespace(form, field):
 class SignUpForm(FlaskForm):
     username = StringField(
         'username', validators=[DataRequired(), check_whitespace, username_exists])
-    email = StringField('email', validators=[DataRequired(), check_whitespace, user_exists])
+    email = StringField('email', validators=[DataRequired(), check_whitespace, user_exists, Regexp(r'^[^@]+@[^@]+\.[^@]+$', message="Invalid email address.")])
     password = StringField('password', validators=[DataRequired(), check_whitespace])
