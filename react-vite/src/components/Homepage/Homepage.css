@@ -29,3 +29,44 @@
     color: #E2D6C7;
     text-shadow: 1px 1px 2px #000000a8;
 }
+
+
+.home-footer {
+    width: 100%;
+    text-align: left;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.created-by {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: black;
+    text-shadow: 1px 1px 1px #8c1d40;
+}
+
+.footer-links {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-link {
+    font-size: 1.2em;
+    color: #8c1d40;
+    text-shadow: 1px 1px 1px #E2D6C7;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.footer-link:hover {
+    color: #E2D6C7;
+    text-shadow: 1px 1px 1px #8c1d40;
+}

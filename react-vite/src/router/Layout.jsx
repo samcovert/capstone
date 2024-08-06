@@ -24,7 +24,6 @@ export default function Layout() {
         <img src="https://samsclub13.s3.us-west-2.amazonaws.com/background.jpeg" className="background-logo" />
         <div className="background"></div>
         </div>
-
         </>}
         <Modal />
       </ModalProvider>
