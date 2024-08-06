@@ -2,7 +2,7 @@
 
 Check out the live site [here](https://yotes-4-ever.onrender.com)
 
-Yotes 4 Ever is a website dedicated to keeping the memory of the Phoenix/Arizona Coyotes alive. Users can buy/sell team merchandise, post news about the team, share their memories of the team, and see the teams historical stats.
+Yotes 4 Ever is a website dedicated to keeping the memory of the Phoenix/Arizona Coyotes alive. Users can buy and sell team merchandise, post news about the team, share their memories of the team, and see the Coyotes historical stats.
 
 ## Technologies Used
 
@@ -18,4 +18,17 @@ Yotes 4 Ever is a website dedicated to keeping the memory of the Phoenix/Arizona
 
 ## Screenshots
 ### Landing Page
-(./images/landing-page.png)
+![Landing Page](./images/landing-page.png)
+### Merch Store
+![Merch](./images/merch.png)
+![Merch-Dets](./images/merch-1.png)
+### News Page
+![News](./images/news.png)
+![News-Dets](./images/news-1.png)
+### Team History
+![History](./images/history.png)
+![History-Dets](./images//history-1.png)
+### Memories Page
+![Memories](./images//memories.png)
+![Memories-Dets](./images//memories-1.png)
+![Memories-Dets](./images//memories-2.png)
