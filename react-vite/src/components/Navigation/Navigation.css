@@ -63,6 +63,7 @@
   background-color: #8c1d40;
   display: flex;
   justify-content: center;
+  padding: 2px;
 }
 
 .nav-item {
@@ -74,6 +75,7 @@
   font-family: 'Roboto';
   font-weight: 400;
   font-size: 15px;
+  border: 2px solid #8c1d40;
 }
 
 .nav-item:hover {
