@@ -16,6 +16,30 @@ Yotes 4 Ever is a website dedicated to keeping the memory of the Phoenix/Arizona
 - [User Stories](https://github.com/samcovert/yotes-4-ever/wiki/User-Stories)
 - [Original Wireframes](https://github.com/samcovert/yotes-4-ever/wiki/Wireframes)
 
+## Installation Instructions
+1. Clone this repository.
+
+2. Install dependencies.
+    ```bash
+    pipenv install -r requirements.txt
+    ```
+3. Get into your pipenv, migrate your database, seed your database, and run your
+   Flask app:
+   ```bash
+   pipenv shell
+   ```
+   ```bash
+   flask db upgrade
+   ```
+   ```bash
+   flask seed all
+   ```
+   ```bash
+   flask run
+   ```
+4. cd into the react-vite directory, run `npm i`, then `npm run build`
+
+
 ## Screenshots
 ### Landing Page
 ![Landing Page](./images/landing-page.png)
